@@ -1,0 +1,31 @@
+name: 'Setup elixir and node'
+description: 'Install elixir and node'
+inputs:
+  node-version:
+    description: 'node version'
+    required: true
+    default: '18.12.1'
+  otp-version:
+    description: 'otp version'
+    required: true
+    default: '26.0.2'
+  elixir-version:
+    description: 'elixir version'
+    required: true
+    default: '1.15.2'
+runs:
+  using: "composite"
+  steps:
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: ${{inputs.otp-version}}
+        elixir-version: ${{inputs.elixir-version}}
+    - run: mix local.hex --force && mix local.rebar --force
+      shell: bash
+    - run: mix deps.get
+      shell: bash
+      if: steps.cache.outputs.cache-hit != 'true'
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{inputs.node-version}}

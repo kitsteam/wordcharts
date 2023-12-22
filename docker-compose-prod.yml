@@ -1,0 +1,86 @@
+version: "3.8"
+
+# Add this file to extend the docker compose setup, e.g.:
+# docker compose -f docker-compose-prod.yml --env-file .env.prod up -d --build --force-recreate
+services:
+  app_prod:
+    build:
+      context: .
+      target: production
+    environment:
+      DATABASE_URL: postgres://${DOCKER_COMPOSE_APP_PROD_DATABASE_USER:?}:${DOCKER_COMPOSE_APP_PROD_DATABASE_USER_PASSWORD:?}@${DOCKER_COMPOSE_APP_PROD_DATABASE_HOST:-postgres_prod}/${DOCKER_COMPOSE_APP_PROD_DATABASE_NAME:?}
+      # Add the address of the database host, so that wordcharts can find the database, e.g. an ip address or a reference to another service in the docker-compose file
+      DATABASE_HOST: ${DOCKER_COMPOSE_APP_PROD_DATABASE_HOST:-postgres_prod}
+      # Add the database name that wordcharts should use, e.g. in this case we created and named the database `wordcharts_prod`
+      DATABASE_NAME: ${DOCKER_COMPOSE_APP_PROD_DATABASE_NAME:?}
+      # Add the port of the database host (default is 5432)
+      DATABASE_PORT: ${DOCKER_COMPOSE_APP_PROD_DATABASE_PORT:-5432}
+      # for non local setups, ssl should be set to true!
+      DATABASE_SSL: ${DOCKER_COMPOSE_APP_PROD_DATABASE_SSL:-true}
+      # Add the credentials for the database user that wordcharts should use to access the database
+      # NOTE: The database user should have read and write permissions
+      DATABASE_USER_PASSWORD: ${DOCKER_COMPOSE_APP_PROD_DATABASE_USER_PASSWORD:?}
+      DATABASE_USER: ${DOCKER_COMPOSE_APP_PROD_DATABASE_USER:?}
+
+      DEFAULT_LOCALE: ${DOCKER_COMPOSE_APP_PROD_DEFAULT_LOCALE:-en}
+
+      # Add a secret key base for wordcharts for encrypting the use session
+      # NOTE: There are multiple commands you can use to generate a secret key base. Pick one command you like.
+      # E.g. `date +%s | sha256sum | base64 | head -c 64 ; echo`
+      # See https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
+      SECRET_KEY_BASE: ${DOCKER_COMPOSE_APP_PROD_SECRET_KEY_BASE:?}
+
+      # Add the url host that points to this wordcharts installation.
+      # This is used by wordcharts to generate urls with the right host throughout the app.
+      PHX_HOST: ${DOCKER_COMPOSE_APP_PROD_URL_HOST:-localhost}
+      URL_SCHEME: ${DOCKER_COMPOSE_APP_URL_SCHEME:-https}
+      # Port for URLs
+      URL_PORT: ${DOCKER_COMPOSE_APP_PROD_URL_PORT:-443}
+      # Internally used Port
+      PORT: ${DOCKER_COMPOSE_APP_PROD_PORT_TARGET:-4000}
+      NLP_WORD_TAGGER_SERVER_URL: "${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_SERVER_URL:-nlp-word-tagger-server}:${DOCKER_COMPOSE_TAGGER_SERVER_PORT_PUBLISHED:-8080}"
+      NLP_WORD_TAGGER_BASIC_AUTH_USER_NAME: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_NAME}
+      NLP_WORD_TAGGER_BASIC_AUTH_USER_PASSWORD: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_PASSWORD}
+    ports:
+      - "${DOCKER_COMPOSE_APP_PROD_PORT_PUBLISHED:-4000}:${DOCKER_COMPOSE_APP_PROD_PORT_TARGET:-4000}"
+    depends_on:
+      - postgres_prod
+  nlp-word-tagger-server:
+    build:
+      context: https://github.com/b310-digital/nlp-word-tagger-server.git#main
+      target: production
+    restart: on-failure
+    tty: true
+    stdin_open: true
+    ports:
+      - "${DOCKER_COMPOSE_TAGGER_SERVER_PORT_PUBLISHED:-8080}:${DOCKER_COMPOSE_TAGGER_SERVER_PORT_TARGET:-8080}"
+    environment:
+      BASIC_AUTH_ENABLED: true
+      BASIC_AUTH_USER_NAME: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_NAME}
+      BASIC_AUTH_USER_PASSWORD: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_PASSWORD}
+      SERVER_PORT: 8080
+      SERVER_HOST: 0.0.0.0
+
+  # If you do not have another postgres database service in this docker-compose, you can add this postgres service.
+  # Note: Please use other credentials when using this in production.
+  postgres_prod:
+    image: postgres:12-alpine
+    # Pass config parameters to the postgres server.
+    # Find more information below when you need to generate the ssl-relevant file your self
+    # command: -c ssl=off -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: ${DOCKER_COMPOSE_POSTGRES_PROD_DB}
+      POSTGRES_PASSWORD: ${DOCKER_COMPOSE_POSTGRES_PROD_PASSWORD}
+      POSTGRES_PORT: ${DOCKER_COMPOSE_POSTGRES_PROD_PORT:-5432}
+      POSTGRES_USER: ${DOCKER_COMPOSE_POSTGRES_PROD_USER}
+    volumes:
+      # To setup an ssl-enabled postgres server locally, you need to generate a self-signed ssl certificate.
+      # See README.md for more information.
+      # Mount the ssl_cert_file and ssl_key_file into the docker container.
+      - ./ca/server.crt:/var/lib/postgresql/server.crt
+      - ./ca/server.key:/var/lib/postgresql/server.key
+      - postgres_prod_data:/var/lib/postgresql/data/pgdata
+
+volumes:
+  postgres_prod_data:

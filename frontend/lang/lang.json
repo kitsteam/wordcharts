@@ -1,0 +1,194 @@
+{
+  "chart.buttons.download": {
+    "defaultMessage": "Download"
+  },
+  "chart.buttons.download.png": {
+    "defaultMessage": "png"
+  },
+  "chart.buttons.download.svg": {
+    "defaultMessage": "svg"
+  },
+  "chart.buttons.share.feedback": {
+    "defaultMessage": "Share a link to your feedback chart to allow others to add new words."
+  },
+  "close": {
+    "defaultMessage": "Close"
+  },
+  "download": {
+    "defaultMessage": "Download"
+  },
+  "feedback.admin.header": {
+    "defaultMessage": "Feedback Chart"
+  },
+  "feedback.admin.header.subline": {
+    "defaultMessage": "Collect feedback and display it in a chart"
+  },
+  "feedback.user.button.submit": {
+    "defaultMessage": "Submit Feedback"
+  },
+  "feedback.user.input.hint": {
+    "defaultMessage": "Please enter Feedback"
+  },
+  "feedback.user.input.placeholder": {
+    "defaultMessage": "Please insert only one word per input box!"
+  },
+  "feedback.user.message.error": {
+    "defaultMessage": "An error has occured."
+  },
+  "feedback.user.message.success": {
+    "defaultMessage": "Thank you for providing Feedback!"
+  },
+  "filter.all": {
+    "defaultMessage": "All categories"
+  },
+  "languages.de": {
+    "defaultMessage": "German"
+  },
+  "languages.en": {
+    "defaultMessage": "English"
+  },
+  "live.admin.header": {
+    "defaultMessage": "Live Text Chart"
+  },
+  "live.admin.header.subline": {
+    "defaultMessage": "Enter text to count and categorize words"
+  },
+  "live.filter": {
+    "defaultMessage": "Filter"
+  },
+  "live.text.button.submit": {
+    "defaultMessage": "Add Text"
+  },
+  "live.text.loading": {
+    "defaultMessage": "Request is being processed..."
+  },
+  "live.text.success": {
+    "defaultMessage": "Words added. Depending on the chosen filter they might not be visible yet."
+  },
+  "sharemodal.title": {
+    "defaultMessage": "Share"
+  },
+  "start.buttons.feedback": {
+    "defaultMessage": "Feedback"
+  },
+  "start.buttons.live": {
+    "defaultMessage": "Text"
+  },
+  "start.feature.one": {
+    "defaultMessage": "Create a WordChart"
+  },
+  "start.feature.three": {
+    "defaultMessage": "Visualise feedback!"
+  },
+  "start.feature.two": {
+    "defaultMessage": "Collaborate with others!"
+  },
+  "start.hint.deletion": {
+    "defaultMessage": "Attention: Your WordCharts will be deleted 30 days after the last change."
+  },
+  "start.hint.privacy": {
+    "defaultMessage": "You may only use this tool in an education context. Entry of personal data is not permitted!"
+  },
+  "toolbar.buttons.clear": {
+    "defaultMessage": "Clear"
+  },
+  "toolbar.buttons.colors": {
+    "defaultMessage": "Colors"
+  },
+  "toolbar.buttons.danger": {
+    "defaultMessage": "Danger"
+  },
+  "toolbar.buttons.dropdown.filter.all": {
+    "defaultMessage": "All"
+  },
+  "toolbar.buttons.dropdown.filter.none": {
+    "defaultMessage": "No filter"
+  },
+  "toolbar.buttons.dropdown.filter.noun": {
+    "defaultMessage": "Noun"
+  },
+  "toolbar.buttons.dropdown.filter.verb": {
+    "defaultMessage": "Verb"
+  },
+  "toolbar.buttons.dropdown.filter.adjective": {
+    "defaultMessage": "Adjective"
+  },
+  "toolbar.buttons.dropdown.filter.adverb": {
+    "defaultMessage": "Adverb"
+  },
+  "toolbar.buttons.dropdown.filter.article": {
+    "defaultMessage": "Article"
+  },
+  "toolbar.buttons.dropdown.filter.preposition": {
+    "defaultMessage": "Preposition"
+  },
+  "toolbar.buttons.dropdown.filter.conjuncture": {
+    "defaultMessage": "Conjuncture"
+  },
+  "toolbar.buttons.dropdown.filter.pronoun": {
+    "defaultMessage": "Pronoun"
+  },
+  "toolbar.buttons.dropdown.filter.misc": {
+    "defaultMessage": "Misc"
+  },
+  "toolbar.buttons.dropdown.orientation.ninety": {
+    "defaultMessage": "Set rotation angle 90"
+  },
+  "toolbar.buttons.dropdown.orientation.zero": {
+    "defaultMessage": "Set rotation angle 0"
+  },
+  "toolbar.buttons.dropdown.theme.grammar": {
+    "defaultMessage": "Change to grammatical category"
+  },
+  "toolbar.buttons.dropdown.theme.grey": {
+    "defaultMessage": "Change to greyscale colors"
+  },
+  "toolbar.buttons.dropdown.theme.mix": {
+    "defaultMessage": "Change to fancy colors"
+  },
+  "toolbar.buttons.orientation": {
+    "defaultMessage": "Orientation"
+  },
+  "toolbar.buttons.settings": {
+    "defaultMessage": "Toggle Settings"
+  },
+  "toolbar.buttons.share": {
+    "defaultMessage": "Share"
+  },
+  "toolbar.settings.language": {
+    "defaultMessage": "Language"
+  },
+  "toolbar.settings.theme.article": {
+    "defaultMessage": "Article color"
+  },
+  "toolbar.settings.theme.adjective": {
+    "defaultMessage": "Adjective color"
+  },
+  "toolbar.settings.theme.adverb": {
+    "defaultMessage": "Adverb color"
+  },
+  "toolbar.settings.theme.conjuncture": {
+    "defaultMessage": "Conjuncture color"
+  },
+  "toolbar.settings.theme.pronoun": {
+    "defaultMessage": "Pronoun color"
+  },
+  "toolbar.settings.theme.preposition": {
+    "defaultMessage": "Preposition color"
+  },
+  "toolbar.settings.theme.misc": {
+    "defaultMessage": "Misc color"
+  },
+  "toolbar.settings.theme.noun": {
+    "defaultMessage": "Noun color"
+  },
+  "toolbar.settings.theme.verb": {
+    "defaultMessage": "Verb color"
+  },
+  "toolbar.settings.theme.hint": {
+    "defaultMessage": "Color is used when color filter is set on setting &quot;grammatical category&quot;"
+  },
+  "wordchart.empty": {
+    "defaultMessage": "This word chart is currently empty."
+  }
+}

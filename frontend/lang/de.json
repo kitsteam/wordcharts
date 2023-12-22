@@ -1,0 +1,245 @@
+{
+  "chart.buttons.download": {
+    "defaultMessage": "Download"
+  },
+  "chart.buttons.download.png": {
+    "defaultMessage": "png"
+  },
+  "chart.buttons.download.svg": {
+    "defaultMessage": "svg"
+  },
+  "chart.buttons.share.feedback": {
+    "defaultMessage": "Teile den Link um Feedback von anderen zu erhalten!"
+  },
+  "close": {
+    "defaultMessage": "Schließen"
+  },
+  "copied": {
+    "defaultMessage": "Kopiert!"
+  },
+  "copy": {
+    "defaultMessage": "Kopieren"
+  },
+  "download": {
+    "defaultMessage": "Download"
+  },
+  "feedback.admin.header": {
+    "defaultMessage": "Feedback Chart"
+  },
+  "feedback.admin.header.subline": {
+    "defaultMessage": "Sammle Feedback und lasse es hier darstellen!"
+  },
+  "feedback.admin.message.error": {
+    "defaultMessage": "Daten konnten nicht geladen werden."
+  },
+  "feedback.admin.message.loading": {
+    "defaultMessage": "Lade..."
+  },
+  "feedback.user.button.submit": {
+    "defaultMessage": "Abschicken"
+  },
+  "feedback.user.input.hint": {
+    "defaultMessage": "Bitte Feedback eingeben"
+  },
+  "feedback.user.input.placeholder": {
+    "defaultMessage": "Gib bitte jeweils nur ein Wort ein!"
+  },
+  "feedback.user.message.error": {
+    "defaultMessage": "Ein Fehler ist aufgetreten."
+  },
+  "feedback.user.message.success": {
+    "defaultMessage": "Danke für das Feedback!"
+  },
+  "filter.all": {
+    "defaultMessage": "Alle Kategorien"
+  },
+  "filter.noun": {
+    "defaultMessage": "Nomen"
+  },
+  "filter.adjective": {
+    "defaultMessage": "Adjektive"
+  },
+  "filter.verb": {
+    "defaultMessage": "Verben"
+  },
+  "languages.de": {
+    "defaultMessage": "Deutsch"
+  },
+  "languages.en": {
+    "defaultMessage": "Englisch"
+  },
+  "live.admin.header": {
+    "defaultMessage": "Live Text Chart"
+  },
+  "live.admin.header.subline": {
+    "defaultMessage": "Text eingeben, um die Anzahl sowie Kategorien der Wörter zu erkennen!"
+  },
+  "live.filter": {
+    "defaultMessage": "Filter"
+  },
+  "live.text.button.submit": {
+    "defaultMessage": "Text hinzufügen"
+  },
+  "live.text.loading": {
+    "defaultMessage": "Anfrage wird bearbeitet..."
+  },
+  "live.text.success": {
+    "defaultMessage": "Wörter hinzugefügt. Je nach Filter werden Wörter ausgeblendet."
+  },
+  "sharemodal.title": {
+    "defaultMessage": "Teilen"
+  },
+  "start.buttons.feedback": {
+    "defaultMessage": "Feedback"
+  },
+  "start.buttons.live": {
+    "defaultMessage": "Text"
+  },
+  "start.disclaimer.background": {
+    "defaultMessage": "Bild von Miguel Pedroso"
+  },
+  "start.feature.one": {
+    "defaultMessage": "Erstelle eine Wortwolke!"
+  },
+  "start.feature.three": {
+    "defaultMessage": "Visualisiere Feedback!"
+  },
+  "start.feature.two": {
+    "defaultMessage": "Arbeite gemeinsam mit anderen!"
+  },
+  "table.button.delete": {
+    "defaultMessage": "Löschen"
+  },
+  "table.count": {
+    "defaultMessage": "Anzahl"
+  },
+  "table.grammatical_categories": {
+    "defaultMessage": "Grammatik Kategorien"
+  },
+  "table.word": {
+    "defaultMessage": "Wort"
+  },
+  "toolbar.buttons.clear": {
+    "defaultMessage": "Leeren"
+  },
+  "toolbar.buttons.colors": {
+    "defaultMessage": "Farben"
+  },
+  "toolbar.buttons.danger": {
+    "defaultMessage": "Achtung"
+  },
+  "toolbar.buttons.delete": {
+    "defaultMessage": "Löschen"
+  },
+  "toolbar.buttons.share": {
+    "defaultMessage": "Teilen"
+  },
+  "toolbar.buttons.dropdown.filter.all": {
+    "defaultMessage": "Alle"
+  },
+  "toolbar.buttons.dropdown.filter.none": {
+    "defaultMessage": "Kein Filter"
+  },
+  "toolbar.buttons.dropdown.filter.noun": {
+    "defaultMessage": "Nomen"
+  },
+  "toolbar.buttons.dropdown.filter.verb": {
+    "defaultMessage": "Verb"
+  },
+  "toolbar.buttons.dropdown.filter.adjective": {
+    "defaultMessage": "Adjektiv"
+  },
+  "toolbar.buttons.dropdown.filter.adverb": {
+    "defaultMessage": "Adverb"
+  },
+  "toolbar.buttons.dropdown.filter.article": {
+    "defaultMessage": "Artikel"
+  },
+  "toolbar.buttons.dropdown.filter.preposition": {
+    "defaultMessage": "Präposition"
+  },
+  "toolbar.buttons.dropdown.filter.conjuncture": {
+    "defaultMessage": "Konjunktion"
+  },
+  "toolbar.buttons.dropdown.filter.pronoun": {
+    "defaultMessage": "Pronomen"
+  },
+  "toolbar.buttons.dropdown.filter.misc": {
+    "defaultMessage": "Sonstiges"
+  },
+  "toolbar.buttons.dropdown.orientation.ninety": {
+    "defaultMessage": "Orientierung auf 90 Grad"
+  },
+  "toolbar.buttons.dropdown.orientation.zero": {
+    "defaultMessage": "Orientierung auf 0 Grad"
+  },
+  "toolbar.buttons.dropdown.theme.grammar": {
+    "defaultMessage": "Grammatik"
+  },
+  "toolbar.buttons.dropdown.theme.grey": {
+    "defaultMessage": "Grau"
+  },
+  "toolbar.buttons.dropdown.theme.mix": {
+    "defaultMessage": "Bunt"
+  },
+  "toolbar.buttons.filter": {
+    "defaultMessage": "Filter"
+  },
+  "toolbar.buttons.orientation": {
+    "defaultMessage": "Orientierung"
+  },
+  "toolbar.buttons.settings": {
+    "defaultMessage": "Einstellungen"
+  },
+  "toolbar.settings.language": {
+    "defaultMessage": "Sprache"
+  },
+  "toolbar.settings.rotation": {
+    "defaultMessage": "Limitiere Rotation auf 0°"
+  },
+  "toolbar.settings.theme.article": {
+    "defaultMessage": "Artikel"
+  },
+  "toolbar.settings.theme.adjective": {
+    "defaultMessage": "Adjektiv"
+  },
+  "toolbar.settings.theme.adverb": {
+    "defaultMessage": "Adverb"
+  },
+  "toolbar.settings.theme.conjuncture": {
+    "defaultMessage": "Konjunktion"
+  },
+  "toolbar.settings.theme.pronoun": {
+    "defaultMessage": "Pronomen"
+  },
+  "toolbar.settings.theme.preposition": {
+    "defaultMessage": "Präposition"
+  },
+  "toolbar.settings.theme.misc": {
+    "defaultMessage": "Sonstiges"
+  },
+  "toolbar.settings.theme.noun": {
+    "defaultMessage": "Nomen"
+  },
+  "toolbar.settings.theme.verb": {
+    "defaultMessage": "Verb"
+  },
+  "toolbar.settings.theme.hint": {
+    "defaultMessage": "Die Farben werden genutzt, wenn der Filter auf 'Grammatik Kategorien' eingestellt ist."
+  },
+  "toolbar.settings.theme.explanation": {
+    "defaultMessage": "Bitte eine Farbe pro Kategorie auswählen"
+  },
+  "wordchart": {
+    "defaultMessage": "WordChart"
+  },
+  "wordchart.empty": {
+    "defaultMessage": "Aktuell keine Wörter zum Anzeigen."
+  },
+  "start.hint.deletion": {
+    "defaultMessage": "Achtung: Wortwolken werden 30 Tage nach der letzten Bearbeitung gelöscht. "
+  },
+  "start.hint.privacy": {
+    "defaultMessage": "Dieses Tool darf nur in Bildungskontexten genutzt werden. Die Eingabe personenbezogener Daten ist nicht gestattet."
+  }
+}

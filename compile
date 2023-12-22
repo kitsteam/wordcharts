@@ -1,0 +1,17 @@
+# compile assets
+cd $phoenix_dir
+
+npm run build --prefix frontend
+rm -rf ./priv/static/webapp
+mkdir ./priv/static/webapp
+mv ./frontend/dist/* ./priv/static/webapp
+# frontend folder is not needed anymore
+rm -rf ./frontend
+
+mix assets.deploy
+
+mix phx.digest
+
+if mix help phx.digest.clean 1>/dev/null 2>&1; then
+  mix phx.digest.clean
+fi

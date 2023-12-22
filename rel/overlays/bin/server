@@ -1,0 +1,5 @@
+#!/bin/sh
+cd -P -- "$(dirname -- "$0")"
+
+./wordcharts eval Wordcharts.Release.migrate
+PHX_SERVER=true exec ./wordcharts start

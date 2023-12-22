@@ -1,0 +1,69 @@
+version: "3.8"
+
+services:
+  wordcharts:
+    build:
+      context: .
+      target: development
+    container_name: wordcharts
+    restart: on-failure
+    tty: true
+    stdin_open: true
+    environment:
+      DATABASE_HOST: ${DOCKER_COMPOSE_APP_DATABASE_HOST:-postgres}
+      DATABASE_NAME: ${DOCKER_COMPOSE_APP_DATABASE_NAME:-wordcharts-dev}
+      DATABASE_PORT: ${DOCKER_COMPOSE_APP_DATABASE_PORT:-5432}
+      DATABASE_SSL: ${DOCKER_COMPOSE_APP_DATABASE_SSL:-false}
+      DATABASE_USER_PASSWORD: ${DOCKER_COMPOSE_APP_DATABASE_USER_PASSWORD:-wordcharts-user-password}
+      DATABASE_USER: ${DOCKER_COMPOSE_APP_DATABASE_USER:-wordcharts-user}
+      TEST_DATABASE_HOST: ${DOCKER_COMPOSE_APP_TEST_DATABASE_HOST:-postgres}
+      TEST_DATABASE_NAME: ${DOCKER_COMPOSE_APP_TEST_DATABASE_NAME:-wordcharts-test}
+      TEST_DATABASE_USER_PASSWORD: ${DOCKER_COMPOSE_APP_TEST_DATABASE_USER_PASSWORD:-wordcharts-user-password}
+      TEST_DATABASE_USER: ${DOCKER_COMPOSE_APP_TEST_DATABASE_USER:-wordcharts-user}
+      DEFAULT_LOCALE: ${DOCKER_COMPOSE_APP_DEFAULT_LOCALE:-en}
+      SECRET_KEY_BASE: ${DOCKER_COMPOSE_APP_SECRET_KEY_BASE:-NDliN2UzNjAzMTlmMWIxODZhNzRjMDIzMDY2OTQ5N2Q4NGU3MjUxZjM0YmI0ZGY1}
+      URL_PORT: ${DOCKER_COMPOSE_APP_URL_PORT:-4000}
+      NLP_WORD_TAGGER_SERVER_URL: "${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_SERVER_URL:-nlp-word-tagger-server}:${DOCKER_COMPOSE_TAGGER_SERVER_PORT_PUBLISHED:-8080}"
+      NLP_WORD_TAGGER_BASIC_AUTH_USER_NAME: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_NAME:-admin}
+      NLP_WORD_TAGGER_BASIC_AUTH_USER_PASSWORD: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_PASSWORD:-test}
+    ports:
+      - "${DOCKER_COMPOSE_APP_PORT_PUBLISHED:-4000}:${DOCKER_COMPOSE_APP_PORT_TARGET:-4000}"
+      - "${DOCKER_COMPOSE_JS_APP_PORT_PUBLISHED:-3000}:${DOCKER_COMPOSE_JS_APP_PORT_TARGET:-3000}"
+    healthcheck:
+      disable: true
+    volumes:
+      - .:/app
+      - node_modules:/app/frontend/node_modules
+    depends_on:
+      - postgres
+  nlp-word-tagger-server:
+    build:
+      context: https://github.com/b310-digital/nlp-word-tagger-server.git#main
+      target: production
+    restart: on-failure
+    tty: true
+    stdin_open: true
+    ports:
+      - "${DOCKER_COMPOSE_TAGGER_SERVER_PORT_PUBLISHED:-8080}:${DOCKER_COMPOSE_TAGGER_SERVER_PORT_TARGET:-8080}"
+    environment:
+      BASIC_AUTH_ENABLED: true
+      BASIC_AUTH_USER_NAME: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_NAME:-admin}
+      BASIC_AUTH_USER_PASSWORD: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_PASSWORD:-test}
+      SERVER_PORT: 8080
+      SERVER_HOST: 0.0.0.0
+  postgres:
+      image: postgres:12-alpine
+      environment:
+        PGDATA: /var/lib/postgresql/data/pgdata
+        # IMPORTANT: Do not use these credentials in production. Please use other credentials when deploying this in production
+        POSTGRES_DB: ${DOCKER_COMPOSE_POSTGRES_DB:-wordcharts-dev}
+        POSTGRES_USER: ${DOCKER_COMPOSE_POSTGRES_USER:-wordcharts-user}
+        POSTGRES_PASSWORD: ${DOCKER_COMPOSE_POSTGRES_PASSWORD:-wordcharts-user-password}
+        POSTGRES_PORT: ${DOCKER_COMPOSE_POSTGRES_PORT:-5432}
+      ports:
+        - "${DOCKER_COMPOSE_POSTGRES_PORT_PUBLISHED:-5432}:${DOCKER_COMPOSE_POSTGRES_PORT:-5432}"
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+volumes:
+  node_modules:
+  postgres_data:

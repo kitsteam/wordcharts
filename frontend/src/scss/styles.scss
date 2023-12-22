@@ -1,0 +1,40 @@
+/* Import files: */
+@import "../scss/kits/theme.scss";
+
+.grammatical-dropdown-button>.btn {
+  width: 120px;
+}
+
+.word-options:hover {
+  background-color: inherit;
+  color: #00a3d3 !important;
+  cursor: default;
+
+  font-weight: bold;
+}
+
+.modal-340px {
+  width: 340px;
+}
+
+// add additional min-vh-60 for the height of the chart:
+.min-vh-60 {
+  min-height: 60vh;
+}
+
+
+// set color for tooltip:
+.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: $primary !important;
+}
+
+.tooltip-inner {
+  background-color: $primary !important;
+}
+
+// color picker:
+.grammatical-color-option {
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+}

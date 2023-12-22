@@ -68,7 +68,7 @@ ENV SECRET_KEY_BASE="dummy_secret_key_base_to_avoid_warning_from_production_conf
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
-RUN mix deps.get --only "$MIX_ENV"
+RUN mix deps.get --only $MIX_ENV
 RUN mkdir config
 
 # needed globally to make tsc command work

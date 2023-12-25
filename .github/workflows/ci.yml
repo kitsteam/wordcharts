@@ -10,8 +10,8 @@ on:
 
 env:
   NODE_VERSION: "18.12.1"
-  OTP_VERSION: "26.0.2"
-  ELIXIR_VERSION: "1.15.2"
+  OTP_VERSION: "26.2.1"
+  ELIXIR_VERSION: "1.15.7"
 
 jobs:
   build_deps:

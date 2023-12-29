@@ -55,6 +55,7 @@ function FeedbackChartAdminPage({ words, reactWordchartSettingsFromServer, color
   }
 
   const showSharingOption = channel !== undefined && (words === undefined || words.length === 0)
+  const defaultWordchartSettingsFeedback = { ...defaultWordchartSettings, ...{ colors: themeGreyColors } }
 
   return (
     <Layout>
@@ -83,7 +84,11 @@ function FeedbackChartAdminPage({ words, reactWordchartSettingsFromServer, color
             </Col>
           </Row>
         </div>
-        <SizableWordChart words={words} options={{ ...defaultWordchartSettings, ...reactWordchartSettingsFromServer }} categoryColors={colorsFromServer} data-testid="react-word-cloud" />
+        <SizableWordChart
+          words={words}
+          options={{ ...defaultWordchartSettingsFeedback, ...reactWordchartSettingsFromServer }}
+          categoryColors={colorsFromServer} data-testid="react-word-cloud"
+        />
       </div>
       <WordTable words={words} deleteWord={deleteWord} />
     </Layout>

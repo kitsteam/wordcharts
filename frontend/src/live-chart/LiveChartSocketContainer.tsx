@@ -24,7 +24,7 @@ function LiveChartSocketContainer(): React.ReactElement {
         setCategoryColors(chart?.settings?.grammaticalCategoryColors ?? defaultGrammaticalCategoryColors)
         setLanguage(chart.language ?? 'en')
       })
-      .receive('error', (_resp) => { console.log('Unable to join') })
+      .receive('error', (_resp) => { console.error('Unable to join') })
 
     channel.push('list_words', {})
       .receive('ok', (newWordsFromServer: ServerWord[]) => {

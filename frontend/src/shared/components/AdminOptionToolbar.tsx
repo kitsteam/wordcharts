@@ -54,8 +54,10 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
 
     if (name === 'all') {
       setWordFilter(ALL_CATEGORIES)
+    } else if (filterFromServer?.includes(name) === true) {
+      setWordFilter(filterFromServer.filter((e) => e !== name))
     } else {
-      setWordFilter([name])
+      setWordFilter([...(filterFromServer ?? []), name])
     }
   }
 

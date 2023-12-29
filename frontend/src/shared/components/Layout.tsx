@@ -14,7 +14,7 @@ const Layout = ({ children }: { children: React.ReactNode }): React.ReactElement
           <Navbar.Brand>
             <a className="text-decoration-none fw-semibold" href="/" title="wordcharts">
               <img src={wordchartsLogoUrl} className="d-inline-block align-text-top me-1" height="24" width="30" alt="wordcharts Logo" />
-              wordcharts
+              WordCharts
             </a>
           </Navbar.Brand>
           <NavItem>

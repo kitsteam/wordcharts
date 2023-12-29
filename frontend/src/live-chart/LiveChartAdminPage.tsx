@@ -110,12 +110,6 @@ function LiveChartAdminPage({ words, reactWordchartSettingsFromServer, filterFro
       <div className="mt-2">
         <div>
           <Row >
-            <h1>
-              <FormattedMessage
-                id="live.admin.header"
-                defaultMessage="Live Text Chart"
-              />
-            </h1>
             <span>
               <FormattedMessage
                 id="live.admin.header.subline"

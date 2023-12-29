@@ -27,7 +27,7 @@
     "defaultMessage": "Feedback Chart"
   },
   "feedback.admin.header.subline": {
-    "defaultMessage": "Sammle Feedback und lasse es hier darstellen!"
+    "defaultMessage": "Sammle Feedback und generiere eine Wortwolke!"
   },
   "feedback.admin.message.error": {
     "defaultMessage": "Daten konnten nicht geladen werden."
@@ -72,7 +72,7 @@
     "defaultMessage": "Live Text Chart"
   },
   "live.admin.header.subline": {
-    "defaultMessage": "Text eingeben, um die Anzahl sowie Kategorien der Wörter zu erkennen!"
+    "defaultMessage": "Gestalte eine Wortwolke auf Basis eines Textes!"
   },
   "live.filter": {
     "defaultMessage": "Filter"
@@ -171,16 +171,16 @@
     "defaultMessage": "Orientierung auf 90 Grad"
   },
   "toolbar.buttons.dropdown.orientation.zero": {
-    "defaultMessage": "Orientierung auf 0 Grad"
+    "defaultMessage": "Wörter waagerecht"
   },
   "toolbar.buttons.dropdown.theme.grammar": {
     "defaultMessage": "Grammatik"
   },
   "toolbar.buttons.dropdown.theme.grey": {
-    "defaultMessage": "Grau"
+    "defaultMessage": "grau"
   },
   "toolbar.buttons.dropdown.theme.mix": {
-    "defaultMessage": "Bunt"
+    "defaultMessage": "bunt"
   },
   "toolbar.buttons.filter": {
     "defaultMessage": "Filter"
@@ -195,7 +195,7 @@
     "defaultMessage": "Sprache"
   },
   "toolbar.settings.rotation": {
-    "defaultMessage": "Limitiere Rotation auf 0°"
+    "defaultMessage": "Wörter waagerecht"
   },
   "toolbar.settings.theme.article": {
     "defaultMessage": "Artikel"
@@ -228,7 +228,7 @@
     "defaultMessage": "Die Farben werden genutzt, wenn der Filter auf 'Grammatik Kategorien' eingestellt ist."
   },
   "toolbar.settings.theme.explanation": {
-    "defaultMessage": "Bitte eine Farbe pro Kategorie auswählen"
+    "defaultMessage": "Wähle eine Farbe aus"
   },
   "wordchart": {
     "defaultMessage": "WordChart"

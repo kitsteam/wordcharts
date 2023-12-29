@@ -62,12 +62,6 @@ function FeedbackChartAdminPage({ words, reactWordchartSettingsFromServer, color
         <div>
           <Row className="content-header">
             <Col>
-              <h1>
-                <FormattedMessage
-                  id="feedback.admin.header"
-                  defaultMessage="Feedback Chart"
-                />
-              </h1>
               <span>
                 <FormattedMessage
                   id="feedback.admin.header.subline"

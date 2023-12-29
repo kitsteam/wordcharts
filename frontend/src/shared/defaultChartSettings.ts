@@ -25,7 +25,7 @@ export const calculateMaxSize = (rotationAngles: MinMaxPair | undefined): number
 }
 
 export const defaultWordchartSettings: ReactWordcloudSettings = {
-  colors: ['#00456f'],
+  colors: [],
   enableTooltip: true,
   deterministic: true,
   fontFamily: 'Fira Sans Extra Condensed',
@@ -42,7 +42,7 @@ export const defaultWordchartSettings: ReactWordcloudSettings = {
 }
 
 export const defaultGrammaticalCategoryColors: GrammaticalCategoryColors = {
-  verb: '#000000', adjective: '#000000', noun: '#000000', preposition: '#000000', default: '#000000', adverb: '#000000', pronoun: '#000000', article: '#000000', conjuncture: '#000000', misc: '#000000'
+  verb: '#A53139', adjective: '#0035DA', noun: '#000000', preposition: '#199463', default: '#666666', adverb: '#199463', pronoun: '#AD4AC6', article: '#3194E7', conjuncture: '#FFFF42', misc: '#666666'
 }
 
 export const defaultPaginationCount = 21

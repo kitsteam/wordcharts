@@ -1,5 +1,6 @@
 import { MinMaxPair } from 'react-wordcloud'
 import { GrammaticalCategoryColors, GrammaticalCategoryIndex, ReactWordcloudSettings } from './types'
+import { DEFAULT_COLOR } from './colors'
 
 export const MAX_SIZE = 100
 export const MIN_SIZE = 15
@@ -42,7 +43,7 @@ export const defaultWordchartSettings: ReactWordcloudSettings = {
 }
 
 export const defaultGrammaticalCategoryColors: GrammaticalCategoryColors = {
-  verb: '#A53139', adjective: '#0035DA', noun: '#000000', preposition: '#199463', default: '#666666', adverb: '#199463', pronoun: '#AD4AC6', article: '#3194E7', conjuncture: '#FFFF42', misc: '#666666'
+  verb: '#A53139', adjective: '#0035DA', noun: '#000000', preposition: '#199463', default: DEFAULT_COLOR, adverb: '#199463', pronoun: '#AD4AC6', article: '#3194E7', conjuncture: '#FFFF42', misc: DEFAULT_COLOR
 }
 
 export const defaultPaginationCount = 21

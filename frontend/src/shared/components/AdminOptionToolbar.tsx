@@ -53,7 +53,7 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
     }
 
     if (name === 'all') {
-      setWordFilter(ALL_CATEGORIES)
+      setWordFilter([])
     } else if (filterFromServer?.includes(name) === true) {
       setWordFilter(filterFromServer.filter((e) => e !== name))
     } else {
@@ -64,7 +64,7 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
   const createCategoryFiltersForLgScreens = (): React.ReactNode[] => {
     if (filterFromServer === undefined) return [<div key={'filter-empty'}></div>]
 
-    const normalizedFilterList = filterFromServer !== null && filterFromServer.length > 0 ? filterFromServer : ALL_CATEGORIES
+    const normalizedFilterList = filterFromServer !== null && filterFromServer.length > 0 ? filterFromServer : ['all']
 
     return ['all', ...ALL_CATEGORIES].map((categoryName: string, index: number) => {
       return (<Button key={`filter-lg-category-id-${index}`} variant="" onClick={(event) => handleFilterClick(categoryName)}>

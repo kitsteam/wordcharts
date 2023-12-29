@@ -83,7 +83,11 @@ function FeedbackChartAdminPage({ words, reactWordchartSettingsFromServer, color
             </Col>
           </Row>
         </div>
-        <SizableWordChart words={words} options={{ ...defaultWordchartSettings, ...reactWordchartSettingsFromServer }} categoryColors={colorsFromServer} data-testid="react-word-cloud" />
+        <SizableWordChart
+          words={words}
+          options={{ ...defaultWordchartSettings, ...{ colors: [themeGreyColors] }, ...reactWordchartSettingsFromServer }}
+          categoryColors={colorsFromServer} data-testid="react-word-cloud"
+        />
       </div>
       <WordTable words={words} deleteWord={deleteWord} />
     </Layout>

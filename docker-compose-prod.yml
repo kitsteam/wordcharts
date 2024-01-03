@@ -7,6 +7,8 @@ services:
     build:
       context: .
       target: production
+      args:
+        - VITE_NLP_WORD_TAGGER_MAX_INPUT=600
     environment:
       DATABASE_URL: postgres://${DOCKER_COMPOSE_APP_PROD_DATABASE_USER:?}:${DOCKER_COMPOSE_APP_PROD_DATABASE_USER_PASSWORD:?}@${DOCKER_COMPOSE_APP_PROD_DATABASE_HOST:-postgres_prod}/${DOCKER_COMPOSE_APP_PROD_DATABASE_NAME:?}
       # Add the address of the database host, so that wordcharts can find the database, e.g. an ip address or a reference to another service in the docker-compose file
@@ -38,6 +40,10 @@ services:
       URL_PORT: ${DOCKER_COMPOSE_APP_PROD_URL_PORT:-443}
       # Internally used Port
       PORT: ${DOCKER_COMPOSE_APP_PROD_PORT_TARGET:-4000}
+      # Max input for NLP TAGGER
+      NLP_WORD_TAGGER_MAX_INPUT: 500
+      VITE_NLP_WORD_TAGGER_MAX_INPUT: 500
+
       NLP_WORD_TAGGER_SERVER_URL: "${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_SERVER_URL:-nlp-word-tagger-server}:${DOCKER_COMPOSE_TAGGER_SERVER_PORT_PUBLISHED:-8080}"
       NLP_WORD_TAGGER_BASIC_AUTH_USER_NAME: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_NAME}
       NLP_WORD_TAGGER_BASIC_AUTH_USER_PASSWORD: ${DOCKER_COMPOSE_APP_NLP_WORD_TAGGER_BASIC_AUTH_USER_PASSWORD}

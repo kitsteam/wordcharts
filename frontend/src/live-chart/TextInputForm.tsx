@@ -70,7 +70,7 @@ function TextInputForm(): React.ReactElement {
             <Form.Control
               as="textarea"
               placeholder="Text"
-              maxLength={import.meta.env.VITE_NLP_WORD_TAGGER_MAX_INPUT || 500}
+              maxLength={import.meta.env.VITE_NLP_WORD_TAGGER_MAX_INPUT !== undefined ? parseInt(import.meta.env.VITE_NLP_WORD_TAGGER_MAX_INPUT, 10) : 500}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => { setInputText((e.target as HTMLTextAreaElement).value) }}
               onKeyPress={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 if (e.key === 'Enter') {

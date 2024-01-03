@@ -14,9 +14,6 @@ name: Create and publish a Docker image
 on:
   release:
     types: [published]
-  push:
-    branches:
-      - 13-add-max-text-input
             
 env:
   REGISTRY: ghcr.io

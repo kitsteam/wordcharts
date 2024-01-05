@@ -5,6 +5,8 @@ import Alert from 'react-bootstrap/Alert'
 import { WebsocketContext } from '../shared/PhoenixWebsocketProvider'
 import { FormattedMessage } from 'react-intl'
 
+const MAX_LENGTH = import.meta.env.VITE_NLP_WORD_TAGGER_MAX_INPUT !== undefined ? parseInt(import.meta.env.VITE_NLP_WORD_TAGGER_MAX_INPUT, 10) : 500
+
 // See https://github.com/spencermountain/compromise/blob/master/types/misc.ts
 export interface Term {
   text: string
@@ -28,6 +30,12 @@ function TextInputForm(): React.ReactElement {
   const { channel, adminId } = useContext(WebsocketContext)
   const [waitingForChannelPush, setWaitingForChannelPush] = useState<boolean>(false)
   const [completedChannelPush, setCompletedChannelPush] = useState<boolean>(false)
+  const [remainingTextInput, setRemainingTextInput] = useState<number>(MAX_LENGTH)
+
+  const handleChange = (text: string) => {
+    setInputText(text)
+    setRemainingTextInput(text.length < MAX_LENGTH ? MAX_LENGTH - text.length : 0)
+  }
 
   const submit = (event: React.SyntheticEvent<HTMLFormElement>): void => {
     if (channel === undefined) return
@@ -41,6 +49,7 @@ function TextInputForm(): React.ReactElement {
       .receive('ok', () => {
         setWaitingForChannelPush(false)
         setCompletedChannelPush(true)
+        setRemainingTextInput(MAX_LENGTH)
       })
   }
 
@@ -65,13 +74,13 @@ function TextInputForm(): React.ReactElement {
         </Alert>
       }
       {!waitingForChannelPush &&
-        <Form onSubmit={submit}>
-          <Form.Group className="mb-3">
+        <Form onSubmit={submit} className="w-full">
+          <Form.Group className="mb-3 w-full">
             <Form.Control
               as="textarea"
               placeholder="Text"
-              maxLength={import.meta.env.VITE_NLP_WORD_TAGGER_MAX_INPUT !== undefined ? parseInt(import.meta.env.VITE_NLP_WORD_TAGGER_MAX_INPUT, 10) : 500}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => { setInputText((e.target as HTMLTextAreaElement).value) }}
+              maxLength={MAX_LENGTH}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => { handleChange((e.target as HTMLTextAreaElement).value) }}
               onKeyPress={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 if (e.key === 'Enter') {
                   e.preventDefault()
@@ -84,15 +93,18 @@ function TextInputForm(): React.ReactElement {
               }}
               data-testid="test-input-control-text"
             />
-            <div className="d-flex justify-content-end">
-              <Button type="submit" variant="primary" className="mt-1">
-                <FormattedMessage
-                  id="live.text.button.submit"
-                  defaultMessage="Add Text"
-                />
-              </Button>
+            </Form.Group>
+            <div className="d-flex w-full">
+              <div className="flex-grow-1">{`${remainingTextInput} / ${MAX_LENGTH}`}</div>
+              <div>
+                <Button type="submit" variant="primary" className="mt-1">
+                  <FormattedMessage
+                    id="live.text.button.submit"
+                    defaultMessage="Add Text"
+                  />
+                </Button>
+              </div>
             </div>
-          </Form.Group>
         </Form>
       }
     </div>

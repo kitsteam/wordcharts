@@ -31,23 +31,23 @@ end
 
 if config_env() == :prod do
   unless System.get_env("DATABASE_HOST") do
-    Logger.warn(
+    Logger.warning(
       "Environment variable DATABASE_HOST is missing, e.g. DATABASE_HOST=localhost or DATABASE_HOST=postgres"
     )
   end
 
   unless System.get_env("DATABASE_NAME") do
-    Logger.warn("Environment variable DATABASE_NAME is missing, e.g. DATABASE_NAME=wordcharts")
+    Logger.warning("Environment variable DATABASE_NAME is missing, e.g. DATABASE_NAME=wordcharts")
   end
 
   unless System.get_env("DATABASE_USER") do
-    Logger.warn(
+    Logger.warning(
       "Environment variable DATABASE_USER is missing, e.g. DATABASE_USER=wordcharts_user"
     )
   end
 
   unless System.get_env("DATABASE_USER_PASSWORD") do
-    Logger.warn(
+    Logger.warning(
       "Environment variable DATABASE_USER_PASSWORD is missing, e.g. DATABASE_USER_PASSWORD=wordcharts_user_password"
     )
   end

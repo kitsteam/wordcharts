@@ -32,7 +32,7 @@ function TextInputForm(): React.ReactElement {
   const [completedChannelPush, setCompletedChannelPush] = useState<boolean>(false)
   const [remainingTextInput, setRemainingTextInput] = useState<number>(MAX_LENGTH)
 
-  const handleChange = (text: string) => {
+  const handleChange = (text: string): void => {
     setInputText(text)
     setRemainingTextInput(text.length < MAX_LENGTH ? MAX_LENGTH - text.length : 0)
   }
@@ -93,18 +93,18 @@ function TextInputForm(): React.ReactElement {
               }}
               data-testid="test-input-control-text"
             />
-            </Form.Group>
-            <div className="d-flex w-full">
-              <div className="flex-grow-1">{`${remainingTextInput} / ${MAX_LENGTH}`}</div>
-              <div>
-                <Button type="submit" variant="primary" className="mt-1">
-                  <FormattedMessage
-                    id="live.text.button.submit"
-                    defaultMessage="Add Text"
-                  />
-                </Button>
-              </div>
+          </Form.Group>
+          <div className="d-flex w-full">
+            <div className="flex-grow-1">{`${remainingTextInput} / ${MAX_LENGTH}`}</div>
+            <div>
+              <Button type="submit" variant="primary" className="mt-1">
+                <FormattedMessage
+                  id="live.text.button.submit"
+                  defaultMessage="Add Text"
+                />
+              </Button>
             </div>
+          </div>
         </Form>
       }
     </div>

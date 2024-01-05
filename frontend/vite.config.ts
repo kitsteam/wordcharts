@@ -31,7 +31,6 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   } else {
     // command === 'build'
     return {
-      loadEnvFiles: false,
       plugins: [react()],
 
       server: {

@@ -77,8 +77,6 @@ services:
       POSTGRES_PASSWORD: ${DOCKER_COMPOSE_POSTGRES_PROD_PASSWORD}
       POSTGRES_PORT: ${DOCKER_COMPOSE_POSTGRES_PROD_PORT:-5432}
       POSTGRES_USER: ${DOCKER_COMPOSE_POSTGRES_PROD_USER}
-    ports:
-      - 5432:5432
     volumes:
       # To setup an ssl-enabled postgres server locally, you need to generate a self-signed ssl certificate.
       # See README.md for more information.

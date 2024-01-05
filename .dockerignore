@@ -5,6 +5,7 @@
 !frontend/lang/
 !frontend/public/
 !frontend/src/
+!frontend/.env.production
 !frontend/index.html
 !frontend/package-lock.json
 !frontend/package.json

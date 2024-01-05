@@ -7,10 +7,8 @@ services:
     build:
       context: .
       target: production
-      args:
-        - VITE_NLP_WORD_TAGGER_MAX_INPUT=600
     environment:
-      DATABASE_URL: postgres://${DOCKER_COMPOSE_APP_PROD_DATABASE_USER:?}:${DOCKER_COMPOSE_APP_PROD_DATABASE_USER_PASSWORD:?}@${DOCKER_COMPOSE_APP_PROD_DATABASE_HOST:-postgres_prod}/${DOCKER_COMPOSE_APP_PROD_DATABASE_NAME:?}
+      # DATABASE_URL: postgres://${DOCKER_COMPOSE_APP_PROD_DATABASE_USER:?}:${DOCKER_COMPOSE_APP_PROD_DATABASE_USER_PASSWORD:?}@${DOCKER_COMPOSE_APP_PROD_DATABASE_HOST:-postgres_prod}/${DOCKER_COMPOSE_APP_PROD_DATABASE_NAME:?}
       # Add the address of the database host, so that wordcharts can find the database, e.g. an ip address or a reference to another service in the docker-compose file
       DATABASE_HOST: ${DOCKER_COMPOSE_APP_PROD_DATABASE_HOST:-postgres_prod}
       # Add the database name that wordcharts should use, e.g. in this case we created and named the database `wordcharts_prod`
@@ -79,6 +77,8 @@ services:
       POSTGRES_PASSWORD: ${DOCKER_COMPOSE_POSTGRES_PROD_PASSWORD}
       POSTGRES_PORT: ${DOCKER_COMPOSE_POSTGRES_PROD_PORT:-5432}
       POSTGRES_USER: ${DOCKER_COMPOSE_POSTGRES_PROD_USER}
+    ports:
+      - 5432:5432
     volumes:
       # To setup an ssl-enabled postgres server locally, you need to generate a self-signed ssl certificate.
       # See README.md for more information.

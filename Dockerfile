@@ -59,8 +59,6 @@ FROM base as production_builder
 
 # set build ENV
 ENV MIX_ENV="prod"
-# we need mode development, otherwise build command wont work as it needs bundling capabilities
-# ENV NODE_ENV="production"
 
 # Setting this env var will avoid warnings from the production config
 # We could leave it as it as no effect on the build output
@@ -88,7 +86,8 @@ COPY lib lib
 # Install npm packages:
 COPY frontend/package.json frontend/package-lock.json ./frontend/
 # RUN ls ./frontend >&2
-RUN npm i --quiet --prefix frontend
+# the build requires dev dependencies like vite to work. vite will create a production build.
+RUN npm ci --quiet --prefix frontend
 COPY frontend frontend
 
 RUN npm run build --prefix frontend

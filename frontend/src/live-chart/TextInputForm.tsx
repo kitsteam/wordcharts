@@ -97,7 +97,7 @@ function TextInputForm(): React.ReactElement {
           <div className="d-flex w-full">
             <div className="flex-grow-1">{`${remainingTextInput} / ${MAX_LENGTH}`}</div>
             <div>
-              <Button type="submit" variant="primary" className="mt-1">
+              <Button type="submit" variant="secondary" className="mt-1 text-white">
                 <FormattedMessage
                   id="live.text.button.submit"
                   defaultMessage="Add Text"

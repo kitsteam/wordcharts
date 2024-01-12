@@ -17,9 +17,6 @@
   "download": {
     "defaultMessage": "Download"
   },
-  "feedback.admin.header": {
-    "defaultMessage": "Feedback Chart"
-  },
   "feedback.admin.header.subline": {
     "defaultMessage": "Collect feedback and display it in a chart"
   },
@@ -46,9 +43,6 @@
   },
   "languages.en": {
     "defaultMessage": "English"
-  },
-  "live.admin.header": {
-    "defaultMessage": "Live Text Chart"
   },
   "live.admin.header.subline": {
     "defaultMessage": "Enter text to count and categorize words"
@@ -98,45 +92,6 @@
   "toolbar.buttons.danger": {
     "defaultMessage": "Danger"
   },
-  "toolbar.buttons.dropdown.filter.all": {
-    "defaultMessage": "All"
-  },
-  "toolbar.buttons.dropdown.filter.none": {
-    "defaultMessage": "No filter"
-  },
-  "toolbar.buttons.dropdown.filter.noun": {
-    "defaultMessage": "Noun"
-  },
-  "toolbar.buttons.dropdown.filter.verb": {
-    "defaultMessage": "Verb"
-  },
-  "toolbar.buttons.dropdown.filter.adjective": {
-    "defaultMessage": "Adjective"
-  },
-  "toolbar.buttons.dropdown.filter.adverb": {
-    "defaultMessage": "Adverb"
-  },
-  "toolbar.buttons.dropdown.filter.article": {
-    "defaultMessage": "Article"
-  },
-  "toolbar.buttons.dropdown.filter.preposition": {
-    "defaultMessage": "Preposition"
-  },
-  "toolbar.buttons.dropdown.filter.conjuncture": {
-    "defaultMessage": "Conjuncture"
-  },
-  "toolbar.buttons.dropdown.filter.pronoun": {
-    "defaultMessage": "Pronoun"
-  },
-  "toolbar.buttons.dropdown.filter.misc": {
-    "defaultMessage": "Misc"
-  },
-  "toolbar.buttons.dropdown.orientation.ninety": {
-    "defaultMessage": "Set rotation angle 90"
-  },
-  "toolbar.buttons.dropdown.orientation.zero": {
-    "defaultMessage": "Set rotation angle 0"
-  },
   "toolbar.buttons.dropdown.theme.grammar": {
     "defaultMessage": "Change to grammatical category"
   },
@@ -146,47 +101,17 @@
   "toolbar.buttons.dropdown.theme.mix": {
     "defaultMessage": "Change to fancy colors"
   },
-  "toolbar.buttons.orientation": {
-    "defaultMessage": "Orientation"
-  },
   "toolbar.buttons.settings": {
     "defaultMessage": "Toggle Settings"
-  },
-  "toolbar.buttons.share": {
-    "defaultMessage": "Share"
   },
   "toolbar.settings.language": {
     "defaultMessage": "Language"
   },
-  "toolbar.settings.theme.article": {
-    "defaultMessage": "Article color"
+  "toolbar.settings.rotation": {
+    "defaultMessage": "Limit rotation angle to 0°"
   },
-  "toolbar.settings.theme.adjective": {
-    "defaultMessage": "Adjective color"
-  },
-  "toolbar.settings.theme.adverb": {
-    "defaultMessage": "Adverb color"
-  },
-  "toolbar.settings.theme.conjuncture": {
-    "defaultMessage": "Conjuncture color"
-  },
-  "toolbar.settings.theme.pronoun": {
-    "defaultMessage": "Pronoun color"
-  },
-  "toolbar.settings.theme.preposition": {
-    "defaultMessage": "Preposition color"
-  },
-  "toolbar.settings.theme.misc": {
-    "defaultMessage": "Misc color"
-  },
-  "toolbar.settings.theme.noun": {
-    "defaultMessage": "Noun color"
-  },
-  "toolbar.settings.theme.verb": {
-    "defaultMessage": "Verb color"
-  },
-  "toolbar.settings.theme.hint": {
-    "defaultMessage": "Color is used when color filter is set on setting &quot;grammatical category&quot;"
+  "toolbar.settings.theme.explanation": {
+    "defaultMessage": "Please select a color for each grammar category"
   },
   "wordchart.empty": {
     "defaultMessage": "This word chart is currently empty."

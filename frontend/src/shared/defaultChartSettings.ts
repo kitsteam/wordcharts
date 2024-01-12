@@ -43,7 +43,16 @@ export const defaultWordchartSettings: ReactWordcloudSettings = {
 }
 
 export const defaultGrammaticalCategoryColors: GrammaticalCategoryColors = {
-  verb: '#A53139', adjective: '#0035DA', noun: '#000000', preposition: '#199463', default: DEFAULT_COLOR, adverb: '#199463', pronoun: '#AD4AC6', article: '#3194E7', conjuncture: '#FFFF42', misc: DEFAULT_COLOR
+  verb: '#E53935',
+  adjective: '#303F9F',
+  noun: '#000000',
+  preposition: '#388E3C',
+  default: DEFAULT_COLOR,
+  adverb: '#F57C00',
+  pronoun: '#7B1FA2',
+  article: '#0288D1',
+  conjuncture: '#EC187A',
+  misc: DEFAULT_COLOR
 }
 
 export const defaultPaginationCount = 21

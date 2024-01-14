@@ -32,11 +32,12 @@ defmodule WordchartsWeb.ChartChannel do
     {:reply, {:ok, words}, socket}
   end
 
-  def handle_in("new_words", %{"words" => words_string}, socket) do
+  def handle_in("new_words", %{"words" => words_string, "taggerActive" => tagger_active}, socket) do
     chart_id = parse_chart_id_from_topic(socket.topic)
     chart = Charts.get_chart!(chart_id)
 
     max_input = String.to_integer(System.get_env("NLP_WORD_TAGGER_MAX_INPUT") || "500")
+    # TODO tagger_active
     words = String.slice(words_string, 0..max_input) |> NlpService.tag_words(chart.language)
     Charts.create_words(words, chart)
     new_words = Charts.list_words(chart_id, chart.grammatical_search_filter)

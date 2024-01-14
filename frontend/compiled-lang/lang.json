@@ -19,6 +19,7 @@
   "live.text.button.submit": "Add Text",
   "live.text.loading": "Request is being processed...",
   "live.text.success": "Words added. Depending on the chosen filter they might not be visible yet.",
+  "live.text.toggler.tokenizerActive": "Tag grammar cateogries of input",
   "sharemodal.title": "Share",
   "start.buttons.feedback": "Feedback",
   "start.buttons.live": "Text",

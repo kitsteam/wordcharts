@@ -27,7 +27,7 @@ export const calculateMaxSize = (rotationAngles: MinMaxPair | undefined): number
 
 export const defaultWordchartSettings: ReactWordcloudSettings = {
   colors: [],
-  enableTooltip: true,
+  enableTooltip: false,
   deterministic: true,
   fontFamily: 'Fira Sans Extra Condensed',
   fontSizes: [MIN_SIZE, calculateMaxSize([0, 90])],

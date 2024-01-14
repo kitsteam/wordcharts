@@ -86,6 +86,9 @@
   "live.text.success": {
     "defaultMessage": "Wörter hinzugefügt. Je nach Filter werden Wörter ausgeblendet."
   },
+  "live.text.toggler.tokenizerActive": {
+    "defaultMessage": "Bestimme Typ eingegebener Wörter"
+  },
   "sharemodal.title": {
     "defaultMessage": "Teilen"
   },

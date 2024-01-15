@@ -63,15 +63,16 @@ if config_env() == :prod do
     port: String.to_integer(System.get_env("DATABASE_PORT", "5432")),
     ssl: System.get_env("DATABASE_SSL", "true") == "true",
     socket_options: maybe_ipv6,
-    ssl_opts: [verify: :verify_peer,
-               cacerts: :public_key.cacerts_get(),
-               versions: [:"tlsv1.3"],
-               depth: 3,
-               server_name_indication: String.to_charlist(System.get_env("DATABASE_HOST")),
-               customize_hostname_check: [
-                match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
-               ]
-              ]
+    ssl_opts: [
+      verify: :verify_peer,
+      cacerts: :public_key.cacerts_get(),
+      versions: [:"tlsv1.3"],
+      depth: 3,
+      server_name_indication: String.to_charlist(System.get_env("DATABASE_HOST")),
+      customize_hostname_check: [
+        match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
+      ]
+    ]
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you

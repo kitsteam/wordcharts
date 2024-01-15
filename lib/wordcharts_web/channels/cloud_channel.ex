@@ -32,18 +32,33 @@ defmodule WordchartsWeb.ChartChannel do
     {:reply, {:ok, words}, socket}
   end
 
-  def handle_in("new_words", %{"words" => words_string, "taggerActive" => tagger_active}, socket) do
+  def handle_in("new_words", %{"words" => words_string, "taggerActive" => true}, socket) do
     chart_id = parse_chart_id_from_topic(socket.topic)
     chart = Charts.get_chart!(chart_id)
 
     max_input = String.to_integer(System.get_env("NLP_WORD_TAGGER_MAX_INPUT") || "500")
-    # TODO tagger_active
     words = String.slice(words_string, 0..max_input) |> NlpService.tag_words(chart.language)
     Charts.create_words(words, chart)
-    new_words = Charts.list_words(chart_id, chart.grammatical_search_filter)
 
-    broadcast!(socket, "update_word_list", %{words: new_words})
-    {:reply, {:ok, %{}}, socket}
+    broadcast_with_words(socket, chart)
+  end
+
+  def handle_in("new_words", %{"words" => words_string, "taggerActive" => false}, socket) do
+    chart_id = parse_chart_id_from_topic(socket.topic)
+    chart = Charts.get_chart!(chart_id)
+
+    words_string
+    |> String.replace(["?", "!", ".", ",", "\"", "¿", "'"], "")
+    |> String.split()
+    |> Enum.map(fn word ->
+      %{
+        "name" => word,
+        "grammatical_categories" => ["misc"]
+      }
+    end)
+    |> Charts.create_words(chart)
+
+    broadcast_with_words(socket, chart)
   end
 
   def handle_in(
@@ -56,9 +71,7 @@ defmodule WordchartsWeb.ChartChannel do
 
     if ChartHelpers.is_admin?(chart, admin_url_id) do
       Charts.clear_words(chart_id)
-      words = Charts.list_words(chart_id, chart.grammatical_search_filter)
-      broadcast!(socket, "update_word_list", %{words: words})
-      {:noreply, socket}
+      broadcast_with_words(socket, chart)
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -74,9 +87,7 @@ defmodule WordchartsWeb.ChartChannel do
 
     if ChartHelpers.is_admin?(chart, admin_url_id) do
       Charts.delete_word(chart_id, word_name)
-      words = Charts.list_words(chart_id, chart.grammatical_search_filter)
-      broadcast!(socket, "update_word_list", %{words: words})
-      {:noreply, socket}
+      broadcast_with_words(socket, chart)
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -94,10 +105,8 @@ defmodule WordchartsWeb.ChartChannel do
     {authenticated, chart} = authenticate_chart_access(socket.topic, admin_url_id)
 
     if authenticated do
-      Charts.update_words(chart.id, word_name, [grammatical_categories: [grammatical_category]])
-      words = Charts.list_words(chart.id, chart.grammatical_search_filter)
-      broadcast!(socket, "update_word_list", %{words: words})
-      {:noreply, socket}
+      Charts.update_words(chart.id, word_name, grammatical_categories: [grammatical_category])
+      broadcast_with_words(socket, chart)
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -126,8 +135,6 @@ defmodule WordchartsWeb.ChartChannel do
         })
 
       broadcast_chart_update(socket, updated_chart)
-
-      {:noreply, socket}
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -153,10 +160,7 @@ defmodule WordchartsWeb.ChartChannel do
       Charts.clear_words(chart.id)
       Charts.create_words(words, chart)
 
-      filtered_new_words = Charts.list_words(chart.id, chart.grammatical_search_filter)
-      broadcast!(socket, "update_word_list", %{words: filtered_new_words})
-
-      {:noreply, socket}
+      broadcast_with_words(socket, chart)
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -174,8 +178,7 @@ defmodule WordchartsWeb.ChartChannel do
         })
 
       broadcast_chart_update(socket, updated_chart)
-
-      {:noreply, socket}
+      broadcast_with_words(socket, updated_chart)
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -197,13 +200,16 @@ defmodule WordchartsWeb.ChartChannel do
       grammatical_search_filter: updated_chart.grammatical_search_filter,
       language: updated_chart.language
     })
-
-    broadcast!(socket, "update_word_list", %{
-      words: Charts.list_words(updated_chart.id, updated_chart.grammatical_search_filter)
-    })
   end
 
   defp parse_chart_id_from_topic(string) do
     string |> String.replace(~r/chart:/, "")
+  end
+
+  defp broadcast_with_words(socket, chart) do
+    new_words = Charts.list_words(chart.id, chart.grammatical_search_filter)
+
+    broadcast!(socket, "update_word_list", %{words: new_words})
+    {:reply, {:ok, %{}}, socket}
   end
 end

@@ -28,7 +28,7 @@
   "live.text.button.submit": "Text hinzufügen",
   "live.text.loading": "Anfrage wird bearbeitet...",
   "live.text.success": "Wörter hinzugefügt. Je nach Filter werden Wörter ausgeblendet.",
-  "live.text.toggler.tokenizerActive": "Grammatik eingegebener Wörter erkennen",
+  "live.text.toggler.tokenizerActive": "Wortarten erkennen",
   "sharemodal.title": "Teilen",
   "start.buttons.feedback": "Feedback",
   "start.buttons.live": "Text",

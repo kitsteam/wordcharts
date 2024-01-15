@@ -87,7 +87,7 @@
     "defaultMessage": "Wörter hinzugefügt. Je nach Filter werden Wörter ausgeblendet."
   },
   "live.text.toggler.tokenizerActive": {
-    "defaultMessage": "Grammatik eingegebener Wörter erkennen"
+    "defaultMessage": "Wortarten erkennen"
   },
   "sharemodal.title": {
     "defaultMessage": "Teilen"

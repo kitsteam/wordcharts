@@ -13,7 +13,7 @@ interface AdminOptionToolbarProps {
   id: string | undefined
   adminId: string | undefined
   language?: string | undefined
-  filterFromServer?: string[] | undefined
+  filterFromServer?: string[]
   setWordFilter?: ((wordFilter: string[]) => void) | undefined
   setColorThemeGrey?: () => void
   setColorThemeFancy?: () => void
@@ -79,8 +79,12 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
   }
 
   const createCategoryFiltersForSmScreens = (): React.ReactNode[] => {
+    if (filterFromServer === undefined) return [<Dropdown.Item key={'filter-empty'}></Dropdown.Item>]
+
+    const normalizedFilterList = filterFromServer !== null && filterFromServer.length > 0 ? filterFromServer : ['all']
+
     return ['all', ...ALL_CATEGORIES].map((categoryName: string, index: number) => {
-      return (<Dropdown.Item key={`filter-sm-category-id-${index}`} variant="" onClick={(event) => handleFilterClick(categoryName)}>
+      return (<Dropdown.Item key={`filter-sm-category-id-${index}`} active={normalizedFilterList.includes(categoryName)} variant="" onClick={(event) => handleFilterClick(categoryName)}>
         <FormattedMessage
           id={`toolbar.buttons.dropdown.filter.${categoryName}`}
           defaultMessage={categoryName}

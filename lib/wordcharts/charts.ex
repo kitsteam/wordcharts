@@ -151,9 +151,10 @@ defmodule Wordcharts.Charts do
   def all_words(chart_id) do
     {:ok, chart_id_binary} = Ecto.UUID.dump(chart_id)
 
-    query = from word in "words",
-              where: word.chart_id == ^chart_id_binary,
-              select: word.name
+    query =
+      from word in "words",
+        where: word.chart_id == ^chart_id_binary,
+        select: word.name
 
     Repo.all(query)
   end

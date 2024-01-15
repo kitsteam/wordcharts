@@ -41,7 +41,7 @@ describe('TestInputForm', () => {
     fireEvent.change(element, { target: { value: 'Text' } })
     fireEvent.click(screen.getByText(/Add Text/i))
 
-    expect(channel.push).toBeCalledWith('new_words', { words: 'Text', admin_url_id: 'adminId' })
+    expect(channel.push).toBeCalledWith('new_words', { words: 'Text', taggerActive: true })
   })
 
   test('pressing enter submits the form', () => {
@@ -57,6 +57,6 @@ describe('TestInputForm', () => {
 
     fireEvent.change(element, { target: { value: 'Text' } })
     fireEvent.keyPress(element, { key: 'Enter', charCode: 13 })
-    expect(channel.push).toBeCalledWith('new_words', { words: 'Text', admin_url_id: 'adminId' })
+    expect(channel.push).toBeCalledWith('new_words', { words: 'Text', taggerActive: true })
   })
 })

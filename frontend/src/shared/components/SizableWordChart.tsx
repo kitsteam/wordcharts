@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { FormattedMessage } from 'react-intl'
-import { Callbacks, ReactWordCloud, Word, defaultCallbacks } from 'react-wordcloud'
+import { Callbacks, ReactWordCloud, Word, defaultCallbacks, Optional } from 'react-wordcloud'
 import { calculateMaxSize, defaultGrammaticalCategoryColors, MIN_SIZE } from '../defaultChartSettings'
 import { useWindowWidth } from '../hooks/screenWidthHook'
 import { mapWords } from '../mapWords'
@@ -16,17 +16,17 @@ export function SizableWordChart({ options, words, categoryColors }: { options: 
     setWordChartSettings({ ...options, ...{ fontSizes: [MIN_SIZE, calculateMaxSize(options.rotationAngles)] } })
   }, [width, options])
 
-  const callbacks: Callbacks = (() => {
+  const callbacks: Optional<Callbacks> = (() => {
     if ((options.colors != null) && options.colors.length === 0 && (categoryColors != null)) {
       const colors: GrammaticalCategoryColors = { ...defaultGrammaticalCategoryColors, ...categoryColors }
 
       return {
         getWordColor: (word: Word) => colorByCategory(word.categories, colors),
-        getWordTooltip: ({ text, value }) => `${text} (${value})`,
-        onWordMouseOut: () => { }
+        getWordTooltip: defaultCallbacks.getWordTooltip,
+        onWordMouseOut: defaultCallbacks.onWordMouseOut
       }
     } else {
-      return defaultCallbacks as Callbacks
+      return defaultCallbacks
     }
   })()
 

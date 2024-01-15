@@ -22,7 +22,7 @@ defmodule WordchartsWeb.ChartChannelTest do
     assert_reply ref, :ok, []
   end
 
-  test "new_words", %{socket: socket, chart: chart} do
+  test "new_words with tagger", %{socket: socket, chart: chart} do
     Wordcharts.HTTPClientMock
     |> expect(:post, fn url, body, header ->
       assert url == "localhost/tagged_words?lang=en"
@@ -40,13 +40,30 @@ defmodule WordchartsWeb.ChartChannelTest do
 
     push(socket, "new_words", %{
       "words" => "Test",
-      "admin_url_id" => chart.admin_url_id
+      "admin_url_id" => chart.admin_url_id,
+      "taggerActive" => true
     })
 
     assert_broadcast "update_word_list",
                      %{
                        words: [
                          %{name: "Test", value: 1, grammatical_categories: ["noun"]}
+                       ]
+                     },
+                     500
+  end
+
+  test "new_words wtihout tagger", %{socket: socket, chart: chart} do
+    push(socket, "new_words", %{
+      "words" => "Test",
+      "admin_url_id" => chart.admin_url_id,
+      "taggerActive" => false
+    })
+
+    assert_broadcast "update_word_list",
+                     %{
+                       words: [
+                         %{name: "Test", value: 1, grammatical_categories: ["misc"]}
                        ]
                      },
                      500
@@ -149,7 +166,9 @@ defmodule WordchartsWeb.ChartChannelTest do
       "admin_url_id" => chart.admin_url_id
     })
 
-    assert_broadcast "update_word_list", %{words: [%{name: "some name", grammatical_categories: ["noun"], value: 1}]}
+    assert_broadcast "update_word_list", %{
+      words: [%{name: "some name", grammatical_categories: ["noun"], value: 1}]
+    }
 
     assert_broadcast "update_chart", %{
       id: ^id,

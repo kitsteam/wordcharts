@@ -71,6 +71,9 @@
   "live.text.success": {
     "defaultMessage": "Words added. Depending on the chosen filter they might not be visible yet."
   },
+  "live.text.toggler.tokenizerActive": {
+    "defaultMessage": "Tag grammar cateogries of input"
+  },
   "sharemodal.title": {
     "defaultMessage": "Share"
   },

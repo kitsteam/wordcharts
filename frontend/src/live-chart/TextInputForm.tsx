@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import { WebsocketContext } from '../shared/PhoenixWebsocketProvider'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 const MAX_LENGTH = import.meta.env.VITE_NLP_WORD_TAGGER_MAX_INPUT !== undefined ? parseInt(import.meta.env.VITE_NLP_WORD_TAGGER_MAX_INPUT, 10) : 500
 
@@ -26,15 +26,21 @@ export interface Term {
 }
 
 function TextInputForm(): React.ReactElement {
+  const intl = useIntl()
   const [inputText, setInputText] = useState<string>('')
-  const { channel, adminId } = useContext(WebsocketContext)
+  const { channel } = useContext(WebsocketContext)
   const [waitingForChannelPush, setWaitingForChannelPush] = useState<boolean>(false)
   const [completedChannelPush, setCompletedChannelPush] = useState<boolean>(false)
   const [remainingTextInput, setRemainingTextInput] = useState<number>(MAX_LENGTH)
+  const [taggerActive, setTaggerActive] = useState<boolean>(true)
 
   const handleChange = (text: string): void => {
     setInputText(text)
     setRemainingTextInput(text.length < MAX_LENGTH ? MAX_LENGTH - text.length : 0)
+  }
+
+  const handleToggleTaggerChange = (): void => {
+    setTaggerActive(!taggerActive)
   }
 
   const submit = (event: React.SyntheticEvent<HTMLFormElement>): void => {
@@ -45,7 +51,7 @@ function TextInputForm(): React.ReactElement {
 
     setWaitingForChannelPush(true)
     setCompletedChannelPush(false)
-    channel.push('new_words', { words: inputText, admin_url_id: adminId })
+    channel.push('new_words', { words: inputText, taggerActive })
       .receive('ok', () => {
         setWaitingForChannelPush(false)
         setCompletedChannelPush(true)
@@ -79,7 +85,7 @@ function TextInputForm(): React.ReactElement {
             <Form.Control
               as="textarea"
               placeholder="Text"
-              maxLength={MAX_LENGTH}
+              maxLength={taggerActive ? MAX_LENGTH : undefined}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => { handleChange((e.target as HTMLTextAreaElement).value) }}
               onKeyPress={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 if (e.key === 'Enter') {
@@ -94,10 +100,29 @@ function TextInputForm(): React.ReactElement {
               data-testid="test-input-control-text"
             />
           </Form.Group>
+          <Form.Check
+            type="switch"
+            checked={taggerActive}
+            onChange={(_e: React.ChangeEvent<HTMLInputElement>) => { handleToggleTaggerChange() }}
+            label={
+              intl.formatMessage(
+                {
+                  id: 'live.text.toggler.tokenizerActive',
+                  defaultMessage: 'Tag grammar cateogries of input'
+                }
+              )
+            }
+          />
           <div className="d-flex w-full">
-            <div className="flex-grow-1">{`${remainingTextInput} / ${MAX_LENGTH}`}</div>
+            { taggerActive &&
+              <div className="flex-grow-1">{`${remainingTextInput} / ${MAX_LENGTH}`}</div>
+            }
+            {
+              !taggerActive &&
+              <div className="flex-grow-1"></div>
+            }
             <div>
-              <Button type="submit" variant="primary" className="mt-1">
+              <Button type="submit" variant="secondary" className="mt-1 text-white">
                 <FormattedMessage
                   id="live.text.button.submit"
                   defaultMessage="Add Text"

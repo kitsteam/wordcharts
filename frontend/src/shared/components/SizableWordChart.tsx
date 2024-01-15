@@ -24,7 +24,7 @@ export function SizableWordChart({ options, words, categoryColors }: { options: 
         getWordColor: (word: Word) => colorByCategory(word.categories, colors),
         getWordTooltip: defaultCallbacks.getWordTooltip,
         onWordMouseOut: defaultCallbacks.onWordMouseOut
-      }
+      } as Callbacks
     } else {
       return defaultCallbacks as Callbacks
     }

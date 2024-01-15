@@ -28,7 +28,7 @@ export interface Term {
 function TextInputForm(): React.ReactElement {
   const intl = useIntl()
   const [inputText, setInputText] = useState<string>('')
-  const { channel, adminId } = useContext(WebsocketContext)
+  const { channel } = useContext(WebsocketContext)
   const [waitingForChannelPush, setWaitingForChannelPush] = useState<boolean>(false)
   const [completedChannelPush, setCompletedChannelPush] = useState<boolean>(false)
   const [remainingTextInput, setRemainingTextInput] = useState<number>(MAX_LENGTH)
@@ -51,7 +51,7 @@ function TextInputForm(): React.ReactElement {
 
     setWaitingForChannelPush(true)
     setCompletedChannelPush(false)
-    channel.push('new_words', { words: inputText, taggerActive: taggerActive })
+    channel.push('new_words', { words: inputText, taggerActive })
       .receive('ok', () => {
         setWaitingForChannelPush(false)
         setCompletedChannelPush(true)
@@ -85,7 +85,7 @@ function TextInputForm(): React.ReactElement {
             <Form.Control
               as="textarea"
               placeholder="Text"
-              maxLength={taggerActive ? MAX_LENGTH : null}
+              maxLength={taggerActive ? MAX_LENGTH : undefined}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => { handleChange((e.target as HTMLTextAreaElement).value) }}
               onKeyPress={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 if (e.key === 'Enter') {
@@ -103,12 +103,12 @@ function TextInputForm(): React.ReactElement {
           <Form.Check
             type="switch"
             checked={taggerActive}
-            onChange={(_e: React.ChangeEvent<HTMLTextAreaElement>) => { handleToggleTaggerChange() }}
+            onChange={(_e: React.ChangeEvent<HTMLInputElement>) => { handleToggleTaggerChange() }}
             label={
               intl.formatMessage(
                 {
-                  id: 'live.text.toggler.tokenizerActive', 
-                  defaultMessage: 'Tag grammar cateogries of input',
+                  id: 'live.text.toggler.tokenizerActive',
+                  defaultMessage: 'Tag grammar cateogries of input'
                 }
               )
             }

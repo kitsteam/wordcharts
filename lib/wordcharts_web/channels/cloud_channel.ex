@@ -41,6 +41,7 @@ defmodule WordchartsWeb.ChartChannel do
     Charts.create_words(words, chart)
 
     broadcast_with_words(socket, chart)
+    {:reply, {:ok, %{}}, socket}
   end
 
   def handle_in("new_words", %{"words" => words_string, "taggerActive" => false}, socket) do
@@ -59,6 +60,7 @@ defmodule WordchartsWeb.ChartChannel do
     |> Charts.create_words(chart)
 
     broadcast_with_words(socket, chart)
+    {:reply, {:ok, %{}}, socket}
   end
 
   def handle_in(
@@ -72,6 +74,7 @@ defmodule WordchartsWeb.ChartChannel do
     if ChartHelpers.is_admin?(chart, admin_url_id) do
       Charts.clear_words(chart_id)
       broadcast_with_words(socket, chart)
+      {:noreply, socket}
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -88,6 +91,7 @@ defmodule WordchartsWeb.ChartChannel do
     if ChartHelpers.is_admin?(chart, admin_url_id) do
       Charts.delete_word(chart_id, word_name)
       broadcast_with_words(socket, chart)
+      {:noreply, socket}
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -107,6 +111,7 @@ defmodule WordchartsWeb.ChartChannel do
     if authenticated do
       Charts.update_words(chart.id, word_name, grammatical_categories: [grammatical_category])
       broadcast_with_words(socket, chart)
+      {:noreply, socket}
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -135,6 +140,7 @@ defmodule WordchartsWeb.ChartChannel do
         })
 
       broadcast_chart_update(socket, updated_chart)
+      {:noreply, socket}
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -158,9 +164,10 @@ defmodule WordchartsWeb.ChartChannel do
       words = NlpService.tag_words(old_words, merged_language)
 
       Charts.clear_words(chart.id)
-      Charts.create_words(words, chart)
+      Charts.create_words(words, updated_chart)
 
-      broadcast_with_words(socket, chart)
+      broadcast_with_words(socket, updated_chart)
+      {:noreply, socket}
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -178,7 +185,7 @@ defmodule WordchartsWeb.ChartChannel do
         })
 
       broadcast_chart_update(socket, updated_chart)
-      broadcast_with_words(socket, updated_chart)
+      {:noreply, socket}
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
@@ -200,6 +207,7 @@ defmodule WordchartsWeb.ChartChannel do
       grammatical_search_filter: updated_chart.grammatical_search_filter,
       language: updated_chart.language
     })
+    broadcast_with_words(socket, updated_chart)
   end
 
   defp parse_chart_id_from_topic(string) do
@@ -208,8 +216,6 @@ defmodule WordchartsWeb.ChartChannel do
 
   defp broadcast_with_words(socket, chart) do
     new_words = Charts.list_words(chart.id, chart.grammatical_search_filter)
-
     broadcast!(socket, "update_word_list", %{words: new_words})
-    {:reply, {:ok, %{}}, socket}
   end
 end

@@ -207,6 +207,7 @@ defmodule WordchartsWeb.ChartChannel do
       grammatical_search_filter: updated_chart.grammatical_search_filter,
       language: updated_chart.language
     })
+
     broadcast_with_words(socket, updated_chart)
   end
 

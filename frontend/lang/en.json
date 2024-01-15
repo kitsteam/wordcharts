@@ -77,6 +77,9 @@
   "sharemodal.title": {
     "defaultMessage": "Share"
   },
+  "sharemodal.toggler.showAdminLink": {
+    "defaultMessage": "Use admin link"
+  },
   "start.buttons.feedback": {
     "defaultMessage": "Feedback"
   },

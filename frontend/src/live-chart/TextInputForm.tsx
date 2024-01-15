@@ -85,7 +85,7 @@ function TextInputForm(): React.ReactElement {
             <Form.Control
               as="textarea"
               placeholder="Text"
-              maxLength={MAX_LENGTH}
+              maxLength={taggerActive ? MAX_LENGTH : null}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => { handleChange((e.target as HTMLTextAreaElement).value) }}
               onKeyPress={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 if (e.key === 'Enter') {

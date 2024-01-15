@@ -92,6 +92,9 @@
   "sharemodal.title": {
     "defaultMessage": "Teilen"
   },
+  "sharemodal.toggler.showAdminLink": {
+    "defaultMessage": "Änderungen erlauben"
+  },
   "start.buttons.feedback": {
     "defaultMessage": "Feedback"
   },

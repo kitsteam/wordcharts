@@ -225,6 +225,7 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
         (openShareModal) &&
         <ShareModal
           handleClose={() => setShareModalOpen(false)}
+          adminId={adminId}
         />
       }
     </div >

@@ -21,6 +21,7 @@
   "live.text.success": "Words added. Depending on the chosen filter they might not be visible yet.",
   "live.text.toggler.tokenizerActive": "Tag grammar cateogries of input",
   "sharemodal.title": "Share",
+  "sharemodal.toggler.showAdminLink": "Use admin link",
   "start.buttons.feedback": "Feedback",
   "start.buttons.live": "Text",
   "start.feature.one": "Create a WordChart",

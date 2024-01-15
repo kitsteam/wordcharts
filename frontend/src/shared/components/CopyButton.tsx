@@ -10,14 +10,14 @@ export const CopyButton = ({ contentToCopy }: CopyProps): React.ReactElement => 
   const [copied, setCopied] = useState(false)
 
   const copyUrl = async (): Promise<void> => {
-    if ('share' in (window.navigator)) {
+    if ('clipboard' in (window.navigator)) {
+      await navigator.clipboard.writeText(contentToCopy)
+      setCopied(true)
+    } else if ('share' in (window.navigator)) {
       await (window.navigator as any)?.share({
         title: 'WordCharts',
         url: contentToCopy
       })
-    } else if ('clipboard' in (window.navigator)) {
-      await navigator.clipboard.writeText(contentToCopy)
-      setCopied(true)
     }
   }
 

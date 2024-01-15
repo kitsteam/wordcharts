@@ -7,7 +7,7 @@ describe('ShareModal', () => {
   test('renders the share modal', () => {
     render(
       <IntlProvider locale={'en'} defaultLocale="en">
-        <ShareModal handleClose={vi.fn()} />
+        <ShareModal handleClose={vi.fn()} adminId={'123'} />
       </IntlProvider>
     )
 

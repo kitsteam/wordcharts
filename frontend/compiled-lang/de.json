@@ -30,6 +30,7 @@
   "live.text.success": "Wörter hinzugefügt. Je nach Filter werden Wörter ausgeblendet.",
   "live.text.toggler.tokenizerActive": "Wortarten erkennen",
   "sharemodal.title": "Teilen",
+  "sharemodal.toggler.showAdminLink": "Änderungen erlauben",
   "start.buttons.feedback": "Feedback",
   "start.buttons.live": "Text",
   "start.disclaimer.background": "Bild von Miguel Pedroso",

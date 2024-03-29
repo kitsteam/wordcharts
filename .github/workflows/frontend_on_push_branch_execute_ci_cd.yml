@@ -20,18 +20,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{env.NODE_VERSION}}
-      - uses: actions/cache@v4
-        id: cache-npm
-        with:
-          path: npm-cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/frontend/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-npm-v2
-      
+
       - run: npm --prefix frontend --cache npm-cache ci
-        if: steps.cache-npm.outputs.cache-hit != 'true'
 
   frontend_check_npm_lint:
     runs-on: ubuntu-latest

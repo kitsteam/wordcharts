@@ -1,7 +1,7 @@
 defmodule Wordcharts.Repo.Migrations.UpgradeObanJobsToV12 do
-  use Ecto.Migration
+use Ecto.Migration
 
-  def change do
+def up, do: Oban.Migrations.up(version: 12)
 
-  end
+def down, do: Oban.Migrations.down(version: 11)
 end

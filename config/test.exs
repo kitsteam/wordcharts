@@ -20,9 +20,6 @@ config :wordcharts, WordchartsWeb.Endpoint,
   secret_key_base: "iWzzMTCwHvgCMUl6gX28kTHzSjgrTsxvuhrhHgyyH4RiqHWeVq33y9pHW2T+55o+",
   server: false
 
-# In test we don't send emails.
-config :wordcharts, Wordcharts.Mailer, adapter: Swoosh.Adapters.Test
-
 # Print only warnings and errors during test
 config :logger, level: :warning
 

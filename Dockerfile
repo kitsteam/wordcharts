@@ -86,7 +86,7 @@ COPY lib lib
 COPY frontend/package.json frontend/package-lock.json ./frontend/
 
 # the build requires dev dependencies like vite to work. vite will create a production build.
-RUN npm ci --quiet --prefix frontend
+RUN npm ci --prefix frontend
 COPY frontend frontend
 
 RUN npm run build --prefix frontend

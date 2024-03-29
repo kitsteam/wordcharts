@@ -27,8 +27,8 @@ jobs:
         id: cache-npm
         with:
           path: frontend/node_modules
-          key: ${{ runner.os }}-npm-v1-${{ hashFiles('**/frontend/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-npm-v1
+          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/frontend/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-v2
       
       - run: npm --prefix frontend ci
         if: steps.cache-npm.outputs.cache-hit != 'true'
@@ -52,7 +52,6 @@ jobs:
           key: ${{ runner.os }}-npm-v1-${{ hashFiles('**/mix.lock') }}
           restore-keys: ${{ runner.os }}-npm-v1
           
-      
       - run: npm --prefix frontend run lint
 
   frontend_check_npm_check_types:
@@ -96,5 +95,4 @@ jobs:
           key: ${{ runner.os }}-npm-v1-${{ hashFiles('**/frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v1
 
-      - run: npm --prefix frontend ci
       - run: npm --prefix frontend run test

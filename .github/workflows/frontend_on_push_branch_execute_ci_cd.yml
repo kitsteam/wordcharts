@@ -30,8 +30,7 @@ jobs:
           key: ${{ runner.os }}-npm-v1-${{ hashFiles('**/frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v1
       
-      - run: mix do local.hex --force, local.rebar --force
-      - run: mix deps.get
+      - run: npm --prefix frontend ci
         if: steps.cache-npm.outputs.cache-hit != 'true'
 
   frontend_check_npm_lint:

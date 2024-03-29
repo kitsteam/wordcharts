@@ -29,3 +29,13 @@ yarn-debug.log*
 yarn-error.log*
 
 erl_crash.dump
+
+# Since we are building assets from assets/,
+# we ignore priv/static. You may want to comment
+# this depending on your deployment strategy.
+/priv/static/assets/
+
+# Avoiding accidentally adding local docker-compose*.override file to version control that might contain secrets
+docker-compose-prod.override.yml
+docker-compose.override.yml
+docker-compose*.override.yml

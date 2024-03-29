@@ -1,0 +1,123 @@
+# Do not forget to change status badge in ./README.md
+name: backend_on_push_branch_execute_ci_cd
+
+on:
+  push:
+    branches: [main]
+  # See https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
+  pull_request:
+    # Only branches and tags on the base are evaluated
+    branches: [main]
+
+jobs:
+  build_deps:
+    runs-on: ubuntu-latest
+    # Currently, this need to be synced manually with the Dockerfile. In the future, the workflow should be changed,
+    # so that a development container is built from the Dockerfile, pushed, and then re-used in the following steps.
+    # This would also remove the need to install cmake manually in each step:
+    container: hexpm/elixir:1.15.7-erlang-26.2.2-debian-bullseye-20240130-slim
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-v4-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-v4
+      
+      - run: mix do local.hex --force, local.rebar --force
+      - run: mix deps.get
+        if: steps.cache.outputs.cache-hit != 'true'
+
+  backend_check_mix_test:
+    # Containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    # Docker Hub image that `container-job` executes in
+    container: hexpm/elixir:1.15.7-erlang-26.2.2-debian-bullseye-20240130-slim
+
+    needs: build_deps
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        image: postgres:latest
+        env:
+          # These env variables are required by the postgres service (see above)
+          POSTGRES_DB: mindwendel_test
+          POSTGRES_HOST: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      # These env vars are required by our application
+      # Unfortunately, github workflow does not support yaml anchors ;-(
+      TEST_DATABASE_HOST: postgres
+      TEST_DATABASE_NAME: mindwendel_test
+      TEST_DATABASE_USER: postgres
+      TEST_DATABASE_USER_PASSWORD: postgres
+      MIX_ENV: "test"
+
+    steps:
+      # Downloads a copy of the code in your repository before running CI tests
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-v4-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-v4
+      
+      - run: mix do local.hex --force, local.rebar --force
+      - run: mix compile
+      - run: mix ecto.create
+      - run: mix ecto.migrate
+      - run: mix test
+
+  backend_check_mix_format:
+    runs-on: ubuntu-latest
+    container: hexpm/elixir:1.15.7-erlang-26.2.2-debian-bullseye-20240130-slim
+
+    needs: build_deps
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-v4-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-v4
+      
+      - run: mix do local.hex --force, local.rebar --force
+      
+      - run: mix format --check-formatted
+  
+  backend_check_mix_gettext_extract_up_to_date:
+    runs-on: ubuntu-latest
+    container: hexpm/elixir:1.15.7-erlang-26.2.2-debian-bullseye-20240130-slim
+
+    needs: build_deps
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-v4-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-v4
+      
+      - run: mix do local.hex --force, local.rebar --force
+      - run: mix compile
+      - run: mix gettext.extract --check-up-to-date

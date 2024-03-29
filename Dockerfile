@@ -59,6 +59,9 @@ FROM base as production_builder
 
 # set build ENV
 ENV MIX_ENV="prod"
+ENV NODE_ENV="production"
+# This is required for arm64 builds, see https://elixirforum.com/t/mix-deps-get-memory-explosion-when-doing-cross-platform-docker-build/57157
+ENV ERL_FLAGS="+JPperf true"
 
 # Setting this env var will avoid warnings from the production config
 # We could leave it as it as no effect on the build output
@@ -68,10 +71,6 @@ ENV SECRET_KEY_BASE="dummy_secret_key_base_to_avoid_warning_from_production_conf
 COPY mix.exs mix.lock ./
 RUN mix deps.get --only $MIX_ENV
 RUN mkdir config
-
-# needed globally to make tsc command work
-#RUN npm install --silent --save-dev -g \
-#        typescript@4.8.2
 
 # copy compile-time config files before we compile dependencies
 # to ensure any relevant config change will trigger the dependencies
@@ -85,7 +84,7 @@ COPY lib lib
 
 # Install npm packages:
 COPY frontend/package.json frontend/package-lock.json ./frontend/
-# RUN ls ./frontend >&2
+
 # the build requires dev dependencies like vite to work. vite will create a production build.
 RUN npm ci --quiet --prefix frontend
 COPY frontend frontend

@@ -32,13 +32,13 @@ defmodule Wordcharts.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "1.7.7"},
-      {:phoenix_ecto, "4.4.2"},
-      {:ecto_sql, "3.10.1"},
-      {:postgrex, "0.17.4"},
+      {:phoenix, "1.7.11"},
+      {:phoenix_ecto, "4.5.1"},
+      {:ecto_sql, "3.11.1"},
+      {:postgrex, "0.17.5"},
       {:phoenix_html, "3.3.1"},
       {:phoenix_view, "2.0.2"},
-      {:phoenix_live_reload, "1.4.1", only: :dev},
+      {:phoenix_live_reload, "1.5.2", only: :dev},
       {:phoenix_live_view, "0.19.3"},
       {:floki, "0.34.3", only: :test},
       {:phoenix_live_dashboard, "0.8.0"},
@@ -48,11 +48,11 @@ defmodule Wordcharts.MixProject do
       {:telemetry_poller, "1.0.0"},
       {:timex, "3.7.11"},
       {:gettext, "0.24.0"},
-      {:jason, "1.4.0"},
-      {:plug_cowboy, "2.6.1"},
-      {:httpoison, "2.1.0"},
+      {:jason, "1.4.1"},
+      {:plug_cowboy, "2.7.0"},
+      {:httpoison, "2.2.1"},
       {:oban, "2.15.2"},
-      {:mox, "1.0.2", only: :test}
+      {:mox, "1.1.0", only: :test}
     ]
   end
 

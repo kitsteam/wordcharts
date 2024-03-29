@@ -20,11 +20,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{env.NODE_VERSION}}
 
-      - run: npm --prefix frontend --cache npm-cache ci
+      - run: npm --prefix frontend ci
 
   frontend_check_npm_lint:
     runs-on: ubuntu-latest

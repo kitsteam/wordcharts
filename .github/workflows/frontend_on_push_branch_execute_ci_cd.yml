@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
 
-      - run: npm --prefix frontend --cache frontend/node_modules ci
+      - run: npm --prefix frontend --cache ~/.npm ci
 
   frontend_check_npm_lint:
     runs-on: ubuntu-latest

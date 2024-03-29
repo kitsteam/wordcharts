@@ -16,15 +16,11 @@ jobs:
   build_deps:
     runs-on: ubuntu-latest
     # We stick to the elixir image in order to make sure the debian version and installed dependencies are the same:
-    container: hexpm/elixir:1.15.7-erlang-26.2.2-debian-bullseye-20240130-slim
+    container: node:18.20-bookworm-slim
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{env.NODE_VERSION}}
-
-      - run: npm --prefix frontend --cache ~/.npm ci
+      - run: npm --prefix frontend --cache npm-cache ci
 
   frontend_check_npm_lint:
     runs-on: ubuntu-latest

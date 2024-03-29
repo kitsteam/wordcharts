@@ -52,7 +52,7 @@ defmodule Wordcharts.MixProject do
       {:plug_cowboy, "2.6.1"},
       {:httpoison, "2.1.0"},
       {:oban, "2.15.2"},
-      {:mox, "1.0.2", only: :test}
+      {:mox, "1.1.0", only: :test}
     ]
   end
 

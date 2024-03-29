@@ -59,7 +59,7 @@ FROM base as production_builder
 
 # set build ENV
 ENV MIX_ENV="prod"
-ENV NODE_ENV="production"
+
 # This is required for arm64 builds, see https://elixirforum.com/t/mix-deps-get-memory-explosion-when-doing-cross-platform-docker-build/57157
 ENV ERL_FLAGS="+JPperf true"
 
@@ -86,7 +86,7 @@ COPY lib lib
 COPY frontend/package.json frontend/package-lock.json ./frontend/
 
 # the build requires dev dependencies like vite to work. vite will create a production build.
-RUN npm ci --quiet --prefix frontend
+RUN npm ci --prefix frontend
 COPY frontend frontend
 
 RUN npm run build --prefix frontend

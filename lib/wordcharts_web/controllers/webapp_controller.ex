@@ -3,7 +3,7 @@ defmodule WordchartsWeb.WebappController do
 
   def index(conn, _params) do
     conn
-    |> send_resp(200, render_react_app())
+    |> html(render_react_app())
   end
 
   defp render_react_app() do

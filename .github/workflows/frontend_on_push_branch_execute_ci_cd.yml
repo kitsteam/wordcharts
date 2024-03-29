@@ -23,7 +23,7 @@ jobs:
       - uses: actions/cache@v4
         id: cache-npm
         with:
-          path: npm-cache
+          path: frontend/node_modules
           key: ${{ runner.os }}-npm-v3-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v3
 
@@ -41,11 +41,10 @@ jobs:
       - uses: actions/cache@v4
         id: cache-npm
         with:
-          path: npm-cache
+          path: frontend/node_modules
           key: ${{ runner.os }}-npm-v3-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v3
-
-      - run: npm --prefix frontend --cache npm-cache ci     
+    
       - run: npm --prefix frontend run lint
 
   frontend_check_npm_check_types:
@@ -60,11 +59,10 @@ jobs:
       - uses: actions/cache@v4
         id: cache-npm
         with:
-          path: npm-cache
+          path: frontend/node_modules
           key: ${{ runner.os }}-npm-v3-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v3
-
-      - run: npm --prefix frontend --cache npm-cache ci   
+ 
       - run: npm --prefix frontend run check-types
 
 
@@ -80,9 +78,8 @@ jobs:
       - uses: actions/cache@v4
         id: cache-npm
         with:
-          path: npm-cache
+          path: frontend/node_modules
           key: ${{ runner.os }}-npm-v3-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v3
-
-      - run: npm --prefix frontend --cache npm-cache ci   
+ 
       - run: npm --prefix frontend run test

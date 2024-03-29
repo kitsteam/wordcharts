@@ -38,7 +38,7 @@ defmodule Wordcharts.MixProject do
       {:postgrex, "0.17.5"},
       {:phoenix_html, "3.3.3"},
       {:phoenix_view, "2.0.2"},
-      {:phoenix_live_reload, "1.5.2", only: :dev},
+      {:phoenix_live_reload, "1.5.3", only: :dev},
       {:phoenix_live_view, "0.19.3"},
       {:floki, "0.34.3", only: :test},
       {:phoenix_live_dashboard, "0.8.0"},

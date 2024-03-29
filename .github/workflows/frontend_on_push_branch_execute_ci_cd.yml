@@ -28,6 +28,7 @@ jobs:
           restore-keys: ${{ runner.os }}-npm-v3
 
       - run: npm --prefix frontend --cache npm-cache ci
+        if: steps.cache-npm.outputs.cache-hit != 'true'
 
   frontend_check_npm_lint:
     runs-on: ubuntu-latest

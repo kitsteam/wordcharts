@@ -24,7 +24,7 @@ jobs:
         id: cache-npm
         with:
           path: npm-cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/frontend/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v3
 
       - run: npm --prefix frontend --cache npm-cache ci
@@ -42,7 +42,7 @@ jobs:
         id: cache-npm
         with:
           path: npm-cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/frontend/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v3
 
       - run: npm --prefix frontend --cache npm-cache ci     
@@ -61,7 +61,7 @@ jobs:
         id: cache-npm
         with:
           path: npm-cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/frontend/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v3
 
       - run: npm --prefix frontend --cache npm-cache ci   
@@ -81,7 +81,7 @@ jobs:
         id: cache-npm
         with:
           path: npm-cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/frontend/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm-v3
 
       - run: npm --prefix frontend --cache npm-cache ci   

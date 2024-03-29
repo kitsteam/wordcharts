@@ -15,68 +15,74 @@ env:
 jobs:
   build_deps:
     runs-on: ubuntu-latest
-    # We stick to the elixir image in order to make sure the debian version and installed dependencies are the same:
     container: node:18.20-bookworm-slim
 
     steps:
       - uses: actions/checkout@v4
-      - run: npm --prefix frontend --cache npm-cache ci
 
-  frontend_check_npm_lint:
-    runs-on: ubuntu-latest
-    container: hexpm/elixir:1.15.7-erlang-26.2.2-debian-bullseye-20240130-slim
-
-    needs: build_deps
-
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{env.NODE_VERSION}}
- 
-      - run: npm --prefix frontend --cache npm-cache ci          
-      - run: npm --prefix frontend run lint
-
-  frontend_check_npm_check_types:
-    runs-on: ubuntu-latest
-    container: hexpm/elixir:1.15.7-erlang-26.2.2-debian-bullseye-20240130-slim
-
-    needs: build_deps
-
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{env.NODE_VERSION}}
       - uses: actions/cache@v4
         id: cache-npm
         with:
           path: npm-cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/frontend/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-npm-v2
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/frontend/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-v3
 
+      - run: npm --prefix frontend --cache npm-cache ci
+
+  frontend_check_npm_lint:
+    runs-on: ubuntu-latest
+    container: node:18.20-bookworm-slim
+
+    needs: build_deps
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        id: cache-npm
+        with:
+          path: npm-cache
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/frontend/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-v3
+
+      - run: npm --prefix frontend --cache npm-cache ci     
+      - run: npm --prefix frontend run lint
+
+  frontend_check_npm_check_types:
+    runs-on: ubuntu-latest
+    container: node:18.20-bookworm-slim
+
+    needs: build_deps
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        id: cache-npm
+        with:
+          path: npm-cache
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/frontend/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-v3
+
+      - run: npm --prefix frontend --cache npm-cache ci   
       - run: npm --prefix frontend run check-types
 
 
   frontend_check_npm_test:
     runs-on: ubuntu-latest
-    container: hexpm/elixir:1.15.7-erlang-26.2.2-debian-bullseye-20240130-slim
+    container: node:18.20-bookworm-slim
 
     needs: build_deps
 
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{env.NODE_VERSION}}
       - uses: actions/cache@v4
         id: cache-npm
         with:
           path: npm-cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/frontend/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-npm-v2
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/frontend/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-v3
 
+      - run: npm --prefix frontend --cache npm-cache ci   
       - run: npm --prefix frontend run test

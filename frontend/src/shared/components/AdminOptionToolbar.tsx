@@ -84,7 +84,7 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
     const normalizedFilterList = filterFromServer !== null && filterFromServer.length > 0 ? filterFromServer : ['all']
 
     return ['all', ...ALL_CATEGORIES].map((categoryName: string, index: number) => {
-      return (<Dropdown.Item key={`filter-sm-category-id-${index}`} active={normalizedFilterList.includes(categoryName)} variant="" onClick={(event) => handleFilterClick(categoryName)}>
+      return (<Dropdown.Item key={`filter-sm-category-id-${index}`} active={normalizedFilterList.includes(categoryName)} onClick={(event) => handleFilterClick(categoryName)}>
         <FormattedMessage
           id={`toolbar.buttons.dropdown.filter.${categoryName}`}
           defaultMessage={categoryName}

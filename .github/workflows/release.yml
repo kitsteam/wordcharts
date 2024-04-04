@@ -6,7 +6,7 @@ name: Create and publish a Docker image
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "69-chore-upgrade-react-wordcloud"]
   release:
     types: [published]
             

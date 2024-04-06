@@ -65,6 +65,9 @@
   "live.text.button.submit": {
     "defaultMessage": "Add Text"
   },
+  "live.text.error": {
+    "defaultMessage": "There has been an erorr tagging the words. Please try again with a shorter text."
+  },
   "live.text.loading": {
     "defaultMessage": "Request is being processed..."
   },

@@ -26,6 +26,7 @@
   "live.admin.header.subline": "Gestalte eine Wortwolke auf Basis eines Textes!",
   "live.filter": "Filter",
   "live.text.button.submit": "Text hinzufügen",
+  "live.text.error": "Es gab einen Fehler beim Taggen der Wörter. Bitte versuche es erneut mit einem kürzeren Text.",
   "live.text.loading": "Anfrage wird bearbeitet...",
   "live.text.success": "Wörter hinzugefügt. Je nach Filter werden Wörter ausgeblendet.",
   "live.text.toggler.tokenizerActive": "Wortarten erkennen",

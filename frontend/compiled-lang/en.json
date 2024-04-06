@@ -21,6 +21,7 @@
   "live.admin.header.subline": "Enter text to count and categorize words",
   "live.filter": "Filter",
   "live.text.button.submit": "Add Text",
+  "live.text.error": "There has been an erorr tagging the words. Please try again with a shorter text.",
   "live.text.loading": "Request is being processed...",
   "live.text.success": "Words added. Depending on the chosen filter they might not be visible yet.",
   "live.text.toggler.tokenizerActive": "Tag grammar cateogries of input",

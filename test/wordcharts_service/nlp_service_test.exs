@@ -17,7 +17,7 @@ defmodule WordchartsService.NlpServiceTest do
         {:ok, %HTTPoison.Response{body: @success_resp |> Jason.encode!(), status_code: 200}}
       end)
 
-      assert [%{"grammatical_categories" => ["noun"], "name" => "Test"}] ==
+      assert {:ok, [%{"grammatical_categories" => ["noun"], "name" => "Test"}]} ==
                NlpService.tag_words("Test")
     end
 
@@ -36,7 +36,7 @@ defmodule WordchartsService.NlpServiceTest do
          }}
       end)
 
-      assert [] == NlpService.tag_words(",")
+      assert {:ok, []} == NlpService.tag_words(",")
     end
 
     test "tag_words/2 excludes dot" do
@@ -54,7 +54,16 @@ defmodule WordchartsService.NlpServiceTest do
          }}
       end)
 
-      assert [] == NlpService.tag_words(".")
+      assert {:ok, []} == NlpService.tag_words(".")
+    end
+
+    test "tag_words/2 returns error for a timeout" do
+      @http_client
+      |> expect(:post, fn _url, _body, _header ->
+        {:error, %HTTPoison.Error{reason: :timeout, id: nil}}
+      end)
+
+      assert {:error, :timeout} == NlpService.tag_words("a")
     end
   end
 end

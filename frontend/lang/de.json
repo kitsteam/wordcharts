@@ -80,6 +80,9 @@
   "live.text.button.submit": {
     "defaultMessage": "Text hinzufügen"
   },
+  "live.text.error": {
+    "defaultMessage": "Es gab einen Fehler beim Taggen der Wörter. Bitte versuche es erneut mit einem kürzeren Text."
+  },
   "live.text.loading": {
     "defaultMessage": "Anfrage wird bearbeitet..."
   },

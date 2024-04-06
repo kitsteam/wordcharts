@@ -30,6 +30,7 @@ function TextInputForm(): React.ReactElement {
   const [inputText, setInputText] = useState<string>('')
   const { channel } = useContext(WebsocketContext)
   const [waitingForChannelPush, setWaitingForChannelPush] = useState<boolean>(false)
+  const [errorChannelPush, setErrorChannelPush] = useState<boolean>(false)
   const [completedChannelPush, setCompletedChannelPush] = useState<boolean>(false)
   const [remainingTextInput, setRemainingTextInput] = useState<number>(MAX_LENGTH)
   const [taggerActive, setTaggerActive] = useState<boolean>(true)
@@ -51,11 +52,15 @@ function TextInputForm(): React.ReactElement {
 
     setWaitingForChannelPush(true)
     setCompletedChannelPush(false)
+    setErrorChannelPush(false)
     channel.push('new_words', { words: inputText, taggerActive })
       .receive('ok', () => {
         setWaitingForChannelPush(false)
         setCompletedChannelPush(true)
         setRemainingTextInput(MAX_LENGTH)
+      }).receive('error', () => {
+        setWaitingForChannelPush(false)
+        setErrorChannelPush(true)
       })
   }
 
@@ -75,6 +80,15 @@ function TextInputForm(): React.ReactElement {
           <FormattedMessage
             id="live.text.success"
             defaultMessage="Words added. Depending on the chosen filter they might not be visible yet."
+          />
+
+        </Alert>
+      }
+      {errorChannelPush &&
+        <Alert key="danger" variant="danger">
+          <FormattedMessage
+            id="live.text.error"
+            defaultMessage="There has been an erorr tagging the words. Please try again with a shorter text."
           />
 
         </Alert>
@@ -114,7 +128,7 @@ function TextInputForm(): React.ReactElement {
             }
           />
           <div className="d-flex w-full">
-            { taggerActive &&
+            {taggerActive &&
               <div className="flex-grow-1">{`${remainingTextInput} / ${MAX_LENGTH}`}</div>
             }
             {

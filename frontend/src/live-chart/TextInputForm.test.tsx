@@ -13,7 +13,8 @@ describe('TestInputForm', () => {
     Socket.prototype.disconnect = vi.fn()
 
     const Channel = vi.fn()
-    Channel.prototype.push = vi.fn(() => ({ receive: vi.fn() }))
+    const nestedReceive = vi.fn(() => ({ receive: vi.fn() }))
+    Channel.prototype.push = vi.fn(() => ({ receive: nestedReceive }))
     return { Socket, Channel }
   })
 

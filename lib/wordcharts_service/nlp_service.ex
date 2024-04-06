@@ -81,20 +81,39 @@ defmodule WordchartsService.NlpService do
       [{"Accept", "application/json"}]
       |> prepend_if_true(basic_auth_user != "", [{"Authorization", "Basic #{credentials}"}])
 
-    {:ok, response} = http_client.post(url, word_string, header)
+    case http_client.post(url, word_string, header) do
+      {:ok, response} ->
+        handle_ok(response)
 
-    response.body
-    |> Jason.decode!()
-    |> Enum.reject(fn match ->
-      Enum.member?(@ignore_classes, match["wordClass"]) || String.trim(match["wordClass"]) == "" ||
-        Enum.member?(@ignore_chars, match["original"])
-    end)
-    |> Enum.map(fn match ->
-      %{
-        "name" => match["original"],
-        "grammatical_categories" => extract_tags(match["wordClass"])
-      }
-    end)
+      {:error, %HTTPoison.Error{reason: reason, id: _}} ->
+        handle_error(reason)
+
+      _ ->
+        handle_error("unknown")
+    end
+  end
+
+  defp handle_ok(response) do
+    words =
+      response.body
+      |> Jason.decode!()
+      |> Enum.reject(fn match ->
+        Enum.member?(@ignore_classes, match["wordClass"]) ||
+          String.trim(match["wordClass"]) == "" ||
+          Enum.member?(@ignore_chars, match["original"])
+      end)
+      |> Enum.map(fn match ->
+        %{
+          "name" => match["original"],
+          "grammatical_categories" => extract_tags(match["wordClass"])
+        }
+      end)
+
+    {:ok, words}
+  end
+
+  defp handle_error(reason) do
+    {:error, reason}
   end
 
   defp extract_tags(tag_string) do

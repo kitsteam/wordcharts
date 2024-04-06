@@ -37,11 +37,17 @@ defmodule WordchartsWeb.ChartChannel do
     chart = Charts.get_chart!(chart_id)
 
     max_input = String.to_integer(System.get_env("NLP_WORD_TAGGER_MAX_INPUT") || "500")
-    words = String.slice(words_string, 0..max_input) |> NlpService.tag_words(chart.language)
-    Charts.create_words(words, chart)
 
-    broadcast_with_words(socket, chart)
-    {:reply, {:ok, %{}}, socket}
+    case NlpService.tag_words(String.slice(words_string, 0..max_input), chart.language) do
+      {:ok, words} ->
+        Charts.create_words(words, chart)
+
+        broadcast_with_words(socket, chart)
+        {:reply, {:ok, %{}}, socket}
+
+      {:error, reason} ->
+        {:reply, {:error, %{reason: reason}}, socket}
+    end
   end
 
   def handle_in("new_words", %{"words" => words_string, "taggerActive" => false}, socket) do
@@ -161,13 +167,18 @@ defmodule WordchartsWeb.ChartChannel do
       broadcast_chart_update(socket, updated_chart)
 
       old_words = Charts.all_words(chart.id) |> Enum.join(" ")
-      words = NlpService.tag_words(old_words, merged_language)
 
-      Charts.clear_words(chart.id)
-      Charts.create_words(words, updated_chart)
+      case NlpService.tag_words(old_words, merged_language) do
+        {:ok, words} ->
+          Charts.clear_words(chart.id)
+          Charts.create_words(words, updated_chart)
 
-      broadcast_with_words(socket, updated_chart)
-      {:noreply, socket}
+          broadcast_with_words(socket, updated_chart)
+          {:noreply, socket}
+
+        {:error, reason} ->
+          {:reply, {:error, %{reason: reason}}, socket}
+      end
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end

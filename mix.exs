@@ -44,7 +44,7 @@ defmodule Wordcharts.MixProject do
       {:phoenix_live_dashboard, "0.8.3"},
       {:esbuild, "0.8.1", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "1.0.0"},
-      {:telemetry_poller, "1.0.0"},
+      {:telemetry_poller, "1.1.0"},
       {:timex, "3.7.11"},
       {:gettext, "0.24.0"},
       {:jason, "1.4.1"},

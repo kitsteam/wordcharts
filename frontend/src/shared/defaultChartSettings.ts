@@ -29,7 +29,7 @@ export const defaultWordchartSettings: ReactWordcloudSettings = {
   colors: [],
   enableTooltip: false,
   deterministic: true,
-  fontFamily: 'Fira Sans Extra Condensed',
+  fontFamily: 'Arial',
   fontSizes: [MIN_SIZE, calculateMaxSize([0, 90])],
   fontStyle: 'normal',
   fontWeight: 'bold',

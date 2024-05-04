@@ -5,8 +5,6 @@ import { ALL_CATEGORIES } from '../defaultChartSettings'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { ShareModal } from './ShareModal'
 import { Share2, Settings } from 'react-feather'
-import FiraSansBold from '../../assets/fonts/FiraSansExtraCondensed-Bold.ttf'
-import { fileUrlToBase64 } from '../utils'
 import { SettingsComponent } from './SettingsComponent'
 
 interface AdminOptionToolbarProps {
@@ -99,22 +97,6 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
 
     // work on a copy otherwise we modify the existing chart
     const copySVG: SVGSVGElement = svg.cloneNode(true) as SVGSVGElement
-
-    // inline fonts as base64 encodeded
-    const styleTag = document.createElement('style')
-    styleTag.setAttribute('type', 'text/css')
-    const base64font = await fileUrlToBase64(FiraSansBold)
-
-    if (styleTag !== null) {
-      styleTag.textContent = `
-      @font-face {
-        font-family: 'Fira Sans Extra Condensed';
-        font-weight: bold;
-        src: url(${base64font});
-      }
-      `
-      copySVG.prepend(styleTag)
-    }
     const data = (new XMLSerializer()).serializeToString(copySVG)
 
     const image = new Image()

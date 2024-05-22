@@ -32,7 +32,7 @@ export const PhoenixWebsocketProvider = ({ children }: { children: React.ReactNo
     setSocket(socket)
 
     const channelString: ChannelName = `chart:${id}`
-    const newChannel = socket.channel(channelString, {})
+    const newChannel = socket.channel(channelString, {admin_url_id: adminId})
     setChannel(newChannel)
 
     return () => {

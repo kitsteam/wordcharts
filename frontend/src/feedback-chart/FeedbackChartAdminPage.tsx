@@ -25,7 +25,6 @@ function FeedbackChartAdminPage({ words, reactWordchartSettingsFromServer, color
 
   useEffect(() => {
     if (channel === undefined || channel.state !== 'joined') return
-
     channel.push('update_chart', { admin_url_id: adminId, settings: { wordchartSettings: newReactWordcloudSettings } })
   }, [newReactWordcloudSettings, adminId, channel])
 

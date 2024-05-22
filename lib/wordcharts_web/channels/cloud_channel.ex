@@ -7,10 +7,12 @@ defmodule WordchartsWeb.ChartChannel do
 
   require Logger
 
-  def join("chart:" <> chart_id, _params, socket) do
+  def join("chart:" <> chart_id, params, socket) do
     chart = Charts.get_chart!(chart_id)
+    admin_url_id = params["admin_url_id"]
 
-    if ChartHelpers.is_live?(chart) || ChartHelpers.is_feedback?(chart) do
+    if ChartHelpers.is_live?(chart) ||
+         (ChartHelpers.is_feedback?(chart) && ChartHelpers.is_admin?(chart, admin_url_id)) do
       {:ok,
        %{
          id: chart.id,
@@ -24,12 +26,17 @@ defmodule WordchartsWeb.ChartChannel do
     end
   end
 
-  def handle_in("list_words", _params, socket) do
+  def handle_in("list_words", params, socket) do
     chart_id = parse_chart_id_from_topic(socket.topic)
     chart = Charts.get_chart!(chart_id)
+    admin_url_id = params["admin_url_id"]
 
-    words = Charts.list_words(chart_id, chart.grammatical_search_filter)
-    {:reply, {:ok, words}, socket}
+    if ChartHelpers.is_feedback?(chart) && !ChartHelpers.is_admin?(chart, admin_url_id) do
+      {:reply, {:error, reason: "not authorized"}, socket}
+    else
+      words = Charts.list_words(chart_id, chart.grammatical_search_filter)
+      {:reply, {:ok, words}, socket}
+    end
   end
 
   def handle_in("new_words", %{"words" => words_string, "taggerActive" => true}, socket) do

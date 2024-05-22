@@ -21,7 +21,7 @@ function FeedbackChartSocketContainer(): React.ReactElement {
       })
       .receive('error', (_resp) => { console.log('Unable to join') })
 
-    channel.push('list_words', {})
+    channel.push('list_words', {admin_url_id: adminId})
       .receive('ok', (newWordsFromServer: ServerWord[]) => {
         setNewWords(newWordsFromServer)
       })

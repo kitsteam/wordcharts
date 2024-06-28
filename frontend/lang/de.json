@@ -246,9 +246,9 @@
     "defaultMessage": "Aktuell keine Wörter zum Anzeigen."
   },
   "start.hint.deletion": {
-    "defaultMessage": "Achtung: Wortwolken werden 30 Tage nach der letzten Bearbeitung gelöscht. "
+    "defaultMessage": "Achtung: Wortwolken werden 24 Monate nach der letzten Bearbeitung gelöscht."
   },
   "start.hint.privacy": {
-    "defaultMessage": "Dieses Tool darf nur in Bildungskontexten genutzt werden. Die Eingabe personenbezogener Daten ist nicht gestattet."
+    "defaultMessage": "Dieses Tool darf nur in Bildungskontexten genutzt werden. Die Eingabe sensibler Daten ist zu vermeiden."
   }
 }

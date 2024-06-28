@@ -34,7 +34,7 @@ function LeftColumn(): React.ReactElement {
               <div className="col-11 col-sm-10 d-flex justify-content-end">
                 <a href="https://github.com/kitsteam/wordcharts" className="text-white px-lg-2 p-2 text-decoration-none">GitHub</a>
                 <a href="https://kits.blog/impressum/" className="text-white px-lg-2 p-2 text-decoration-none">Impressum</a>
-                <a href="https://kits.blog/datenschutzerklaerung/" className="text-white p-2 text-decoration-none">Datenschutz</a>
+                <a href="https://kits.blog/datenschutz/#wordcharts" className="text-white p-2 text-decoration-none">Datenschutz</a>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@ function LeftColumn(): React.ReactElement {
           <div id="footer-links" className="d-flex align-items-center mb-1">
             <a href="https://github.com/kitsteam/wordcharts" className="text-white px-lg-2 p-2 text-decoration-none">GitHub</a>
             <a href="https://kits.blog/impressum/" className="text-white px-lg-2 p-2 text-decoration-none">Impressum</a>
-            <a href="https://kits.blog/datenschutzerklaerung/" className="text-white p-2 text-decoration-none">Datenschutz</a>
+            <a href="https://kits.blog/datenschutz/#wordcharts" className="text-white p-2 text-decoration-none">Datenschutz</a>
           </div>
         </div>
       </div>

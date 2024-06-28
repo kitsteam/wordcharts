@@ -25,7 +25,7 @@ ARG FRONTEND_APP_PATH="/app/frontend"
 FROM ${BUILDER_IMAGE} as base
 
 # Install node
-ENV NODE_MAJOR=18
+ENV NODE_MAJOR=20
 
 RUN apt-get -y update
 

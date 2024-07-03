@@ -71,7 +71,9 @@ defmodule Wordcharts.RemoveChartsWorkerTest do
       {:ok, uuid_as_binary} = UUID.dump(chart.id)
 
       query = "UPDATE charts SET updated_at = $1 WHERE id = $2"
-      Ecto.Adapters.SQL.query!(Repo, query, [Timex.shift(Timex.now(), days: -31), uuid_as_binary])
+
+      Ecto.Adapters.SQL.query!(Repo, query, [Timex.shift(Timex.now(), days: -721), uuid_as_binary])
+
       chart
     end
 
@@ -79,11 +81,13 @@ defmodule Wordcharts.RemoveChartsWorkerTest do
       {:ok, uuid_as_binary} = UUID.dump(chart.id)
 
       query = "UPDATE words SET updated_at = $1 WHERE chart_id = $2"
-      Ecto.Adapters.SQL.query!(Repo, query, [Timex.shift(Timex.now(), days: -31), uuid_as_binary])
+
+      Ecto.Adapters.SQL.query!(Repo, query, [Timex.shift(Timex.now(), days: -721), uuid_as_binary])
+
       chart
     end
 
-    test "perform/1 deletes charts older than thirty days" do
+    test "perform/1 deletes charts older than 720 days" do
       empty_active_chart = empty_active_chart()
       empty_overdue_chart = empty_overdue_chart()
       assert :ok = perform_job(Wordcharts.Worker.RemoveChartsWorker, %{})

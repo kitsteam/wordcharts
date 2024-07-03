@@ -4,7 +4,7 @@ defmodule Wordcharts.Worker.RemoveChartsWorker do
 
   @impl Oban.Worker
   def perform(_job) do
-    days = 30
+    days = 720
 
     Charts.delete_charts_older_than(days)
 

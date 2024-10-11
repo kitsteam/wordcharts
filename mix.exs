@@ -4,7 +4,7 @@ defmodule Wordcharts.MixProject do
   def project do
     [
       app: :wordcharts,
-      version: "0.1.7",
+      version: "0.1.8",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -51,6 +51,7 @@ defmodule Wordcharts.MixProject do
       {:plug_cowboy, "2.7.1"},
       {:httpoison, "2.2.1"},
       {:oban, "2.17.12"},
+      {:tzdata, "1.1.2"},
       {:mox, "1.1.0", only: :test}
     ]
   end

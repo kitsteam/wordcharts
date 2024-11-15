@@ -52,7 +52,7 @@ defmodule Wordcharts.MixProject do
       {:httpoison, "2.2.1"},
       {:oban, "2.18.3"},
       {:tzdata, "1.1.2"},
-      {:mox, "1.1.0", only: :test}
+      {:mox, "1.2.0", only: :test}
     ]
   end
 

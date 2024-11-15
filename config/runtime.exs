@@ -54,6 +54,11 @@ if config_env() == :prod do
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
+  ssl_config =
+    if System.get_env("DATABASE_SSL", "true") == "true",
+      do: [cacerts: :public_key.cacerts_get()],
+      else: nil
+
   config :wordcharts, Wordcharts.Repo,
     database: System.get_env("DATABASE_NAME"),
     hostname: System.get_env("DATABASE_HOST"),
@@ -61,18 +66,8 @@ if config_env() == :prod do
     username: System.get_env("DATABASE_USER"),
     pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
     port: String.to_integer(System.get_env("DATABASE_PORT", "5432")),
-    ssl: System.get_env("DATABASE_SSL", "true") == "true",
-    socket_options: maybe_ipv6,
-    ssl_opts: [
-      verify: :verify_peer,
-      cacerts: :public_key.cacerts_get(),
-      versions: [:"tlsv1.3"],
-      depth: 3,
-      server_name_indication: String.to_charlist(System.get_env("DATABASE_HOST")),
-      customize_hostname_check: [
-        match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
-      ]
-    ]
+    ssl: ssl_config,
+    socket_options: maybe_ipv6
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you

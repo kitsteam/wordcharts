@@ -40,7 +40,7 @@ defmodule Wordcharts.MixProject do
       {:phoenix_view, "2.0.4"},
       {:phoenix_live_reload, "1.5.3", only: :dev},
       {:phoenix_live_view, "0.20.17"},
-      {:floki, "0.36.2", only: :test},
+      {:floki, "0.37.0", only: :test},
       {:phoenix_live_dashboard, "0.8.5"},
       {:esbuild, "0.8.2", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "1.0.0"},

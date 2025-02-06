@@ -9,7 +9,7 @@ const chart = { grammatical_search_filter: [], name: 'test', language: 'de', cha
 
 describe('FeedbackChartUserPage', () => {
   beforeAll(() => {
-    vi.stubGlobal('fetch', (input: RequestInfo | URL, init: RequestInit | undefined) => {
+    vi.stubGlobal('fetch', (_input: RequestInfo | URL, _init: RequestInit | undefined) => {
       return {
         status: 201
       }

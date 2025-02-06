@@ -25,7 +25,7 @@ interface AdminOptionToolbarProps {
   wordChartSettings: ReactWordcloudSettings
 }
 
-export function AdminOptionToolbar({ id, adminId, language, filterFromServer, setColorThemeFancy, setColorThemeGrey, setColorThemeByCategory, setRotationAngle, clearChart, setWordFilter, setColorForCategory, setLanguage, categoryColors, showSharingOption, wordChartSettings }: AdminOptionToolbarProps): React.ReactElement {
+export function AdminOptionToolbar({ adminId, language, filterFromServer, setColorThemeFancy, setColorThemeGrey, setColorThemeByCategory, setRotationAngle, clearChart, setWordFilter, setColorForCategory, setLanguage, categoryColors, showSharingOption, wordChartSettings }: AdminOptionToolbarProps): React.ReactElement {
   const [openSettings, setSettingsOpen] = useState(false)
   const [openShareModal, setShareModalOpen] = useState(false)
   const intl = useIntl()
@@ -65,7 +65,7 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
     const normalizedFilterList = filterFromServer !== null && filterFromServer.length > 0 ? filterFromServer : ['all']
 
     return ['all', ...ALL_CATEGORIES].map((categoryName: string, index: number) => {
-      return (<Button key={`filter-lg-category-id-${index}`} variant="" onClick={(event) => handleFilterClick(categoryName)}>
+      return (<Button key={`filter-lg-category-id-${index}`} variant="" onClick={(_event) => handleFilterClick(categoryName)}>
         <Badge pill={true} bg={normalizedFilterList.includes(categoryName) ? 'secondary' : 'primary'} className={'rounded-pill'}>
           <FormattedMessage
             id={`toolbar.buttons.dropdown.filter.${categoryName}`}
@@ -82,7 +82,7 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
     const normalizedFilterList = filterFromServer !== null && filterFromServer.length > 0 ? filterFromServer : ['all']
 
     return ['all', ...ALL_CATEGORIES].map((categoryName: string, index: number) => {
-      return (<Dropdown.Item key={`filter-sm-category-id-${index}`} active={normalizedFilterList.includes(categoryName)} onClick={(event) => handleFilterClick(categoryName)}>
+      return (<Dropdown.Item key={`filter-sm-category-id-${index}`} active={normalizedFilterList.includes(categoryName)} onClick={(_event) => handleFilterClick(categoryName)}>
         <FormattedMessage
           id={`toolbar.buttons.dropdown.filter.${categoryName}`}
           defaultMessage={categoryName}
@@ -91,7 +91,7 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
     })
   }
 
-  const download = async (imageType: string = 'image/svg+xml'): Promise<void> => {
+  const download = async (imageType = 'image/svg+xml'): Promise<void> => {
     const svg = document.querySelector('#word-chart svg')
     if (svg === null) return
 
@@ -174,20 +174,20 @@ export function AdminOptionToolbar({ id, adminId, language, filterFromServer, se
                   defaultMessage: 'Download', id: 'chart.buttons.download'
                 })}
               >
-                <Dropdown.Item eventKey="None" onClick={async (event) => await download()}>
+                <Dropdown.Item eventKey="None" onClick={async (_event) => await download()}>
                   <FormattedMessage
                     id="chart.buttons.download.svg"
                     defaultMessage="svg"
                   />
                 </Dropdown.Item>
-                <Dropdown.Item eventKey="None" onClick={async (event) => await download('image/png')}>
+                <Dropdown.Item eventKey="None" onClick={async (_event) => await download('image/png')}>
                   <FormattedMessage
                     id="chart.buttons.download.png"
                     defaultMessage="png"
                   />
                 </Dropdown.Item>
               </DropdownButton>
-              <Button className="me-4" onClick={async (event) => await clearChart()} variant="danger" title={intl.formatMessage({
+              <Button className="me-4" onClick={async (_event) => await clearChart()} variant="danger" title={intl.formatMessage({
                 defaultMessage: 'Danger', id: 'toolbar.buttons.danger'
               })}>
                 <FormattedMessage

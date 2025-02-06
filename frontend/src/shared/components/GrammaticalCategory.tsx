@@ -16,7 +16,8 @@ export const GrammaticalCategory = ({ word, category }: GrammaticalCategoryProps
 
   if (category === undefined || word === undefined) return (<div></div>)
 
-  const changeCategory = (eventKey: any, event: Object): any => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const changeCategory = (eventKey: string | null, event: object) => {
     if (channel === undefined || channel.state !== 'joined') return
 
     channel.push('change_grammatical_category', { word_name: word, grammatical_category: eventKey, admin_url_id: adminId })

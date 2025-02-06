@@ -14,7 +14,7 @@ const fileUrlToBase64 = async (url: string): Promise<string> => {
     try {
       // file reader returns base64 encoded string
       const reader = new FileReader()
-      reader.onload = (e: Event) => {
+      reader.onload = (_e: Event) => {
         if (reader.result === null) {
           resolve('')
         } else if (typeof (reader.result) === 'string') {

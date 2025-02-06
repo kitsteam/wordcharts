@@ -18,7 +18,7 @@ interface LiveChartPageProps {
   language: string
 }
 
-function LiveChartUserPage({ words, reactWordchartSettings, currentWordFilter, wordColors, language }: LiveChartPageProps): React.ReactElement {
+function LiveChartUserPage({ words, reactWordchartSettings, currentWordFilter, wordColors }: LiveChartPageProps): React.ReactElement {
   return (
     <Layout>
       <div className="mt-2">

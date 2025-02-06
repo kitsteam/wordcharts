@@ -8,9 +8,9 @@ export interface FeedbackWords {
   5?: string
 }
 
-export const WEBSOCKET_URL: string = '/socket'
+export const WEBSOCKET_URL = '/socket'
 
-export const NAVIGATION_PATH_PREFIX: string = ''
+export const NAVIGATION_PATH_PREFIX = ''
 
 export const restFetchResource = async (id: string, adminId: string): Promise<ServerChart> => {
   const serverResponse: Response = await fetch(`/api/charts/${id}`, {
@@ -23,7 +23,7 @@ export const restFetchResource = async (id: string, adminId: string): Promise<Se
 }
 
 export const restClear = async (id: string, adminId: string): Promise<boolean> => {
-  const serverResponse: any = await fetch(`/api/charts/${id}/words`, {
+  const serverResponse = await fetch(`/api/charts/${id}/words`, {
     method: 'DELETE',
     headers: createRequestHeaders(adminId)
   })
@@ -32,7 +32,7 @@ export const restClear = async (id: string, adminId: string): Promise<boolean> =
 }
 
 export const restUpdateReactWordcloudSettings = async (id: string, adminId: string, chart: ServerChart): Promise<boolean> => {
-  const serverResponse: any = await fetch(`/api/charts/${id}`, {
+  const serverResponse = await fetch(`/api/charts/${id}`, {
     method: 'PUT',
     headers: createRequestHeaders(adminId),
     body: JSON.stringify({ chart })

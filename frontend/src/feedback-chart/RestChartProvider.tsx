@@ -34,8 +34,7 @@ export const RestChartProvider = ({ children }: { children: React.ReactNode }): 
       setChartLoaded(true)
     }
 
-    fetchChart().then(() => {
-    }).catch((reason: any) => {
+    fetchChart().catch((reason) => {
       console.log(reason)
     })
   }, [adminId, id])

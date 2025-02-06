@@ -8,7 +8,7 @@ describe('RotationAngleSetting', () => {
     render(
       <IntlProvider locale={'en'} defaultLocale="en">
         <RotationAngleSetting
-          setRotationAngle={() => {}}
+          setRotationAngle={(_value: number) => {}}
         />
       </IntlProvider>
     )

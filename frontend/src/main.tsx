@@ -15,12 +15,12 @@ import de from '../compiled-lang/de.json'
 import en from '../compiled-lang/en.json'
 import { detectSupportedLanguage } from './shared/utils'
 
-function loadLocaleData(locale: string): any {
+function loadLocaleData(locale: string): Record<string, string> {
   switch (locale) {
     case 'de':
       return de
     default:
-      return en
+        return en
   }
 }
 

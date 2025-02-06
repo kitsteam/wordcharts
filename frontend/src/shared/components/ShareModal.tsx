@@ -64,7 +64,7 @@ export function ShareModal({ handleClose, adminId }: ShareModalProps): React.Rea
 
   const share = async (): Promise<void> => {
     if ('share' in (window.navigator)) {
-      await (window.navigator as any)?.share({
+      await navigator.share({
         title: 'WordCharts',
         url: sharableUrl
       })

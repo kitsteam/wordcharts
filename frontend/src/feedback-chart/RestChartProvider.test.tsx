@@ -19,7 +19,7 @@ const TestComponent = (): React.ReactElement => {
 
 describe('RestChartProvider', () => {
   beforeAll(() => {
-    vi.stubGlobal('fetch', (input: RequestInfo | URL, init: RequestInit | undefined) => {
+    vi.stubGlobal('fetch', (_input: RequestInfo | URL, _init: RequestInit | undefined) => {
       return new Response('{"name": "test"}', { status: 200 })
     })
   })
@@ -61,7 +61,7 @@ describe('RestChartProvider', () => {
   test('with adminId provides chart', async () => {
     const route = '/feedback/charts/123#adminId=456'
 
-    vi.stubGlobal('fetch', (input: RequestInfo | URL, init: RequestInit | undefined) => {
+    vi.stubGlobal('fetch', (_input: RequestInfo | URL, _init: RequestInit | undefined) => {
       return new Response('{"name": "test"}', { status: 200 })
     })
 

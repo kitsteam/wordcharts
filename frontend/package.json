@@ -13,8 +13,8 @@
     "extract": "formatjs extract 'src/**/*.{ts,tsx}' --out-file ./lang/lang.json",
     "build": "tsc -p tsconfig.prod.json && vite build",
     "preview": "vite preview",
-    "lint": "eslint src/",
-    "lint-fix": "eslint src/",
+    "lint": "eslint .",
+    "lint-fix": "eslint .",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "check-types": "tsc --noemit"

@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command, mode, ssrBuild }) => {
+export default defineConfig(({ command }) => {
   if (command === 'serve') {
     return {
       plugins: [react()],
@@ -40,7 +40,6 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       },
       // webapp folder is for static assets that are served by phoenix
       // all internal routing is leveraging the app prefix that defaults to react via pheonix controller
-      // @ts-ignore
       base: "/webapp/"
     }
   }

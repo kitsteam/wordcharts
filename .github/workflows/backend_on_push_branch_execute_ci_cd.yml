@@ -1,6 +1,8 @@
 # Do not forget to change status badge in ./README.md
 name: backend_on_push_branch_execute_ci_cd
-
+permissions:
+  contents: read
+  
 on:
   push:
     branches: [main]

@@ -3,6 +3,10 @@
 # This action is based on https://docs.github.com/en/actions/publishing-packages/publishing-docker-images and https://github.com/marketplace/actions/build-and-push-docker-images
 
 name: Create and publish a Docker image
+permissions:
+  packages: write
+  contents: read
+  id-token: write
 
 on:
   push:

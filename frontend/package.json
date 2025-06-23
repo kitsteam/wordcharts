@@ -20,7 +20,7 @@
     "check-types": "tsc --noemit"
   },
   "dependencies": {
-    "bootstrap": "5.3.3",
+    "bootstrap": "5.3.7",
     "phoenix": "1.7.19",
     "qr-code-styling": "1.9.1",
     "react": "^18.2.0",

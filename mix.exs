@@ -46,7 +46,7 @@ defmodule Wordcharts.MixProject do
       {:esbuild, "0.10.0", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "1.1.0"},
       {:telemetry_poller, "1.2.0"},
-      {:timex, "3.7.11"},
+      {:timex, "3.7.13"},
       {:gettext, "0.26.2"},
       {:jason, "1.4.4"},
       {:plug_cowboy, "2.7.4"},

@@ -12,9 +12,9 @@
 #   - https://pkgs.org/ - resource for finding needed packages
 #   - Ex: hexpm/elixir:1.14.0-erlang-24.3.4-debian-bullseye-20210902-slim
 #
-ARG ELIXIR_VERSION=1.17.3
-ARG OTP_VERSION=27.1.2
-ARG DEBIAN_VERSION=bookworm-20241111-slim
+ARG ELIXIR_VERSION=1.18.4
+ARG OTP_VERSION=27.3.4.1
+ARG DEBIAN_VERSION=bookworm-20250630-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
@@ -22,7 +22,7 @@ ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 ARG APP_PATH="/app"
 ARG FRONTEND_APP_PATH="/app/frontend"
 
-FROM ${BUILDER_IMAGE} as base
+FROM ${BUILDER_IMAGE} AS base
 
 # Install node
 ENV NODE_MAJOR=20
@@ -53,9 +53,9 @@ RUN mix do local.hex --force, local.rebar --force
 
 WORKDIR $APP_PATH
 
-FROM base as development
+FROM base AS development
 
-FROM base as production_builder
+FROM base AS production_builder
 
 # set build ENV
 ENV MIX_ENV="prod"
@@ -114,7 +114,7 @@ RUN mix release
 
 # start a new build stage so that the final image will only contain
 # the compiled release and other runtime necessities
-FROM ${RUNNER_IMAGE} as production
+FROM ${RUNNER_IMAGE} AS production
 
 RUN apt-get update -y && apt-get install -y ca-certificates libstdc++6 postgresql-client openssl libncurses5 locales \
   && apt-get clean && rm -f /var/lib/apt/lists/*_*

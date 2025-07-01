@@ -17,7 +17,7 @@ jobs:
     # Currently, this need to be synced manually with the Dockerfile. In the future, the workflow should be changed,
     # so that a development container is built from the Dockerfile, pushed, and then re-used in the following steps.
     # This would also remove the need to install cmake manually in each step:
-    container: hexpm/elixir:1.17.3-erlang-27.1.2-debian-bookworm-20241111-slim
+    container: hexpm/elixir:1.18.4-erlang-27.3.4.1-debian-bookworm-20250630-slim
 
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
     # Docker Hub image that `container-job` executes in
-    container: hexpm/elixir:1.17.3-erlang-27.1.2-debian-bookworm-20241111-slim
+    container: hexpm/elixir:1.18.4-erlang-27.3.4.1-debian-bookworm-20250630-slim
 
     needs: build_deps
 
@@ -86,7 +86,7 @@ jobs:
 
   backend_check_mix_format:
     runs-on: ubuntu-latest
-    container: hexpm/elixir:1.17.3-erlang-27.1.2-debian-bookworm-20241111-slim
+    container: hexpm/elixir:1.18.4-erlang-27.3.4.1-debian-bookworm-20250630-slim
 
     needs: build_deps
 
@@ -106,7 +106,7 @@ jobs:
   
   backend_check_mix_gettext_extract_up_to_date:
     runs-on: ubuntu-latest
-    container: hexpm/elixir:1.17.3-erlang-27.1.2-debian-bookworm-20241111-slim
+    container: hexpm/elixir:1.18.4-erlang-27.3.4.1-debian-bookworm-20250630-slim
 
     needs: build_deps
 

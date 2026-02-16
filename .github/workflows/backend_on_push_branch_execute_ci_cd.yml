@@ -20,7 +20,7 @@ jobs:
     container: hexpm/elixir:1.18.4-erlang-27.3.4.1-debian-bookworm-20250630-slim
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/cache@v5
         id: cache
         with:
@@ -70,7 +70,7 @@ jobs:
 
     steps:
       # Downloads a copy of the code in your repository before running CI tests
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: actions/cache@v5
         with:
@@ -92,7 +92,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - uses: actions/cache@v5
         with:
@@ -112,7 +112,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - uses: actions/cache@v5
         with:

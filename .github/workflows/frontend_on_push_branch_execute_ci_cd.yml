@@ -20,7 +20,7 @@ jobs:
     container: node:18.20-bookworm-slim
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: actions/cache@v5
         id: cache-npm
@@ -40,7 +40,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - uses: actions/cache@v5
         id: cache-npm
         with:
@@ -58,7 +58,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - uses: actions/cache@v5
         id: cache-npm
         with:
@@ -77,7 +77,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - uses: actions/cache@v5
         id: cache-npm
         with:

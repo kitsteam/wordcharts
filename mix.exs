@@ -48,7 +48,7 @@ defmodule Wordcharts.MixProject do
       {:telemetry_poller, "1.3.0"},
       {:timex, "3.7.13"},
       {:gettext, "0.26.2"},
-      {:jason, "1.4.4"},
+      {:jason, "1.4.5"},
       {:plug_cowboy, "2.8.1"},
       {:httpoison, "2.3.0"},
       {:oban, "2.19.4"},

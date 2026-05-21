@@ -19,10 +19,9 @@ ARG DEBIAN_VERSION=bookworm-20260518-slim
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 
-ARG APP_PATH="/app"
-ARG FRONTEND_APP_PATH="/app/frontend"
-
 FROM ${BUILDER_IMAGE} AS base
+
+ARG APP_PATH="/app"
 
 # Install node
 ENV NODE_MAJOR=20
@@ -62,10 +61,6 @@ ENV MIX_ENV="prod"
 
 # This is required for arm64 builds, see https://elixirforum.com/t/mix-deps-get-memory-explosion-when-doing-cross-platform-docker-build/57157
 ENV ERL_FLAGS="+JPperf true"
-
-# Setting this env var will avoid warnings from the production config
-# We could leave it as it as no effect on the build output
-ENV SECRET_KEY_BASE="dummy_secret_key_base_to_avoid_warning_from_production_config"
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
@@ -122,9 +117,9 @@ RUN apt-get update -y && apt-get install -y ca-certificates libstdc++6 postgresq
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG="en_US.UTF-8"
+ENV LANGUAGE="en_US:en"
+ENV LC_ALL="en_US.UTF-8"
 
 WORKDIR "/app"
 RUN chown nobody /app
@@ -132,9 +127,10 @@ RUN chown nobody /app
 # set runner ENV
 ENV MIX_ENV="prod"
 ENV NODE_ENV="production"
+ARG APP_PATH="/app"
 
 # Only copy the final release from the build stage
-COPY --from=production_builder --chown=nobody:root /${APP_PATH}/_build/${MIX_ENV}/rel/wordcharts ./
+COPY --from=production_builder --chown=nobody:root ${APP_PATH}/_build/${MIX_ENV}/rel/wordcharts ./
 
 USER nobody
 

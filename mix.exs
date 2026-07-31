@@ -9,7 +9,8 @@ defmodule Wordcharts.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      compilers: [:phoenix_live_view] ++ Mix.compilers()
     ]
   end
 
@@ -41,7 +42,7 @@ defmodule Wordcharts.MixProject do
       {:phoenix_view, "2.0.4"},
       {:phoenix_live_reload, "1.6.2", only: :dev},
       {:phoenix_live_view, "1.2.7"},
-      {:floki, "0.38.3", only: :test},
+      {:lazy_html, "0.1.12", only: :test},
       {:phoenix_live_dashboard, "0.8.7"},
       {:esbuild, "0.10.0", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "1.1.0"},

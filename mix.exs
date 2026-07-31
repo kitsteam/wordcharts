@@ -35,7 +35,7 @@ defmodule Wordcharts.MixProject do
       {:phoenix, "1.8.9"},
       {:phoenix_ecto, "4.7.0"},
       {:ecto_sql, "3.14.0"},
-      {:postgrex, "0.22.2"},
+      {:postgrex, "0.22.3"},
       {:phoenix_html, "4.3.0"},
       {:phoenix_html_helpers, "~> 1.0"},
       {:phoenix_view, "2.0.4"},

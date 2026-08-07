@@ -40,7 +40,7 @@ defmodule Wordcharts.MixProject do
       {:phoenix_html, "4.3.0"},
       {:phoenix_html_helpers, "~> 1.0"},
       {:phoenix_view, "2.0.4"},
-      {:phoenix_live_reload, "1.6.2", only: :dev},
+      {:phoenix_live_reload, "1.7.0", only: :dev},
       {:phoenix_live_view, "1.2.7"},
       {:lazy_html, "0.1.12", only: :test},
       {:phoenix_live_dashboard, "0.8.7"},

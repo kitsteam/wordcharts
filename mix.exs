@@ -33,7 +33,7 @@ defmodule Wordcharts.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "1.8.9"},
+      {:phoenix, "1.8.11"},
       {:phoenix_ecto, "4.7.0"},
       {:ecto_sql, "3.14.0"},
       {:postgrex, "0.22.3"},

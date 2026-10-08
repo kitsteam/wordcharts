@@ -115,17 +115,58 @@ defmodule WordchartsWeb.ChartChannelTest do
 
   test "update_chart settings", %{socket: socket, chart: %{id: id, name: name} = chart} do
     push(socket, "update_chart", %{
-      "settings" => %{"wordchartsSettings" => %{"fontSize" => 16}},
+      "settings" => %{"wordchartSettings" => %{"padding" => 2}},
       "admin_url_id" => chart.admin_url_id
     })
 
     assert_broadcast "update_chart", %{
       id: ^id,
       name: ^name,
-      settings: %{"wordchartsSettings" => %{"fontSize" => 16}},
+      settings: %{"wordchartSettings" => %{"padding" => 2}},
       grammatical_search_filter: [],
       language: "en"
     }
+  end
+
+  test "update_chart settings drops unknown and unsafe settings", %{
+    socket: socket,
+    chart: chart
+  } do
+    push(socket, "update_chart", %{
+      "settings" => %{
+        "wordchartSettings" => %{
+          "padding" => 2,
+          "fontFamily" => "Arial\" onload=\"alert(1)",
+          "textAttributes" => %{"onmouseover" => "alert(1)"}
+        },
+        "grammaticalCategoryColors" => %{"noun" => "#000000", "verb" => "red;x:url(evil)"},
+        "tooltipOptions" => %{"allowHTML" => true}
+      },
+      "admin_url_id" => chart.admin_url_id
+    })
+
+    assert_broadcast "update_chart", %{
+      settings: %{
+        "wordchartSettings" => %{"padding" => 2},
+        "grammaticalCategoryColors" => %{"noun" => "#000000"}
+      }
+    }
+
+    assert Charts.get_chart!(chart.id).settings == %{
+             "wordchartSettings" => %{"padding" => 2},
+             "grammaticalCategoryColors" => %{"noun" => "#000000"}
+           }
+  end
+
+  test "update_chart rejects unsupported language", %{socket: socket, chart: chart} do
+    ref =
+      push(socket, "update_chart", %{
+        "language" => "en&evil=1",
+        "admin_url_id" => chart.admin_url_id
+      })
+
+    assert_reply ref, :error, %{reason: "invalid language"}
+    assert Charts.get_chart!(chart.id).language == "en"
   end
 
   test "update_chart filter", %{socket: socket, chart: %{id: id, name: name} = chart} do

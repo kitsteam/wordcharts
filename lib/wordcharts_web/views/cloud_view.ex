@@ -1,6 +1,8 @@
 defmodule WordchartsWeb.ChartView do
   use WordchartsWeb, :view
 
+  alias Wordcharts.Charts.ChartSettings
+
   def render("show.json", %{chart: chart}) do
     %{data: render_one(chart, WordchartsWeb.ChartView, "chart.json")}
   end
@@ -17,7 +19,7 @@ defmodule WordchartsWeb.ChartView do
       grammatical_search_filter: chart.grammatical_search_filter,
       language: chart.language,
       admin_url_id: chart.admin_url_id,
-      settings: chart.settings,
+      settings: ChartSettings.sanitize(chart.settings),
       inserted_at: chart.inserted_at,
       updated_at: chart.updated_at
     }
@@ -31,7 +33,7 @@ defmodule WordchartsWeb.ChartView do
       grammatical_search_filter: chart.grammatical_search_filter,
       language: chart.language,
       admin_url_id: chart.admin_url_id,
-      settings: chart.settings,
+      settings: ChartSettings.sanitize(chart.settings),
       inserted_at: chart.inserted_at,
       updated_at: chart.updated_at,
       words: render_many(words, WordchartsWeb.WordView, "word.json")
@@ -43,7 +45,7 @@ defmodule WordchartsWeb.ChartView do
     %{
       id: chart.id,
       name: chart.name,
-      settings: chart.settings,
+      settings: ChartSettings.sanitize(chart.settings),
       grammatical_search_filter: chart.grammatical_search_filter,
       language: chart.language,
       chart_type: chart.chart_type,

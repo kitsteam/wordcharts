@@ -22,8 +22,6 @@ function RightColumn(): React.ReactElement {
     const json: ServerChartResponse = await serverResponse.json()
     const { id, admin_url_id: adminUrlId } = json.data
 
-    localStorage.setItem(id, JSON.stringify(json))
-
     navigate(`${NAVIGATION_PATH_PREFIX}/${chartType}/charts/${id}?#adminId=${adminUrlId}`)
     return undefined
   }

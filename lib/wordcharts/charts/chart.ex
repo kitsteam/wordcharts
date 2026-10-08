@@ -2,7 +2,10 @@ defmodule Wordcharts.Charts.Chart do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Wordcharts.Charts.ChartSettings
   alias Wordcharts.Charts.Word
+
+  @supported_languages ~w(en de)
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "charts" do
@@ -22,5 +25,9 @@ defmodule Wordcharts.Charts.Chart do
     chart
     |> cast(attrs, [:name, :grammatical_search_filter, :settings, :chart_type, :language])
     |> validate_required([:settings, :chart_type, :language])
+    |> validate_inclusion(:language, @supported_languages)
+    |> update_change(:settings, &ChartSettings.sanitize/1)
   end
+
+  def supported_languages, do: @supported_languages
 end

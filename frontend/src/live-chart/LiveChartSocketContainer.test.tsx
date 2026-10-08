@@ -9,11 +9,14 @@ import { IntlProvider } from 'react-intl'
 describe('LiveChartSocketContainer', () => {
   test('without adminId renders admin component', () => {
     const route = '/feedback/charts/123'
-    const ResizeObserverMock = vi.fn(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn()
-    }))
+    // vitest 4 requires a function (not an arrow function) for mocks that are called with `new`
+    const ResizeObserverMock = vi.fn(function () {
+      return {
+        observe: vi.fn(),
+        unobserve: vi.fn(),
+        disconnect: vi.fn()
+      }
+    })
 
     vi.stubGlobal('ResizeObserver', ResizeObserverMock)
 

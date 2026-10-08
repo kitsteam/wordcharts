@@ -17,7 +17,7 @@ env:
 jobs:
   build_deps:
     runs-on: ubuntu-latest
-    container: node:18.20-bookworm-slim
+    container: node:22-bookworm-slim
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -33,7 +33,7 @@ jobs:
 
   frontend_check_npm_lint:
     runs-on: ubuntu-latest
-    container: node:18.20-bookworm-slim
+    container: node:22-bookworm-slim
 
     needs: build_deps
 
@@ -51,7 +51,7 @@ jobs:
 
   frontend_check_npm_check_types:
     runs-on: ubuntu-latest
-    container: node:18.20-bookworm-slim
+    container: node:22-bookworm-slim
 
     needs: build_deps
 
@@ -70,7 +70,7 @@ jobs:
 
   frontend_check_npm_test:
     runs-on: ubuntu-latest
-    container: node:18.20-bookworm-slim
+    container: node:22-bookworm-slim
 
     needs: build_deps
 

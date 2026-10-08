@@ -67,7 +67,9 @@ defmodule WordchartsService.NlpService do
   ]
 
   def tag_words(word_string, lang \\ "en", config \\ default_config()) do
-    url = Keyword.get(config, :url, "") <> @word_tagger_path <> "?lang=" <> lang
+    url =
+      Keyword.get(config, :url, "") <> @word_tagger_path <> "?" <> URI.encode_query(%{lang: lang})
+
     http_client = Keyword.get(config, :http_client)
 
     basic_auth_user = Keyword.get(config, :basic_auth_user_name, "")

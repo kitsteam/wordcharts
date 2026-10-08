@@ -28,6 +28,34 @@ defmodule Wordcharts.ChartsTest do
       assert chart.settings == %{}
     end
 
+    test "create_chart/1 rejects unsupported languages" do
+      assert {:error, %Ecto.Changeset{errors: [language: _]}} =
+               Charts.create_chart(%{settings: %{}, language: "en&evil=1"})
+    end
+
+    test "create_chart/1 only keeps allowed settings" do
+      settings = %{
+        "wordchartSettings" => %{
+          "rotationAngles" => [0, 90],
+          "colors" => ["#ffffff", "javascript:alert(1)"],
+          "svgAttributes" => %{"onload" => "alert(1)"},
+          "rotations" => 1.0e9,
+          "fontSizes" => [15, 100]
+        },
+        "callbacks" => %{"getWordTooltip" => "alert(1)"}
+      }
+
+      assert {:ok, %Chart{} = chart} = Charts.create_chart(%{settings: settings, language: "en"})
+
+      assert chart.settings == %{
+               "wordchartSettings" => %{
+                 "rotationAngles" => [0, 90],
+                 "colors" => ["#ffffff"],
+                 "fontSizes" => [15, 100]
+               }
+             }
+    end
+
     test "create_chart/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Charts.create_chart(@invalid_attrs)
     end

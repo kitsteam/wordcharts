@@ -37,6 +37,9 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Admin ids are the only access control for charts, keep them out of the logs
+config :phoenix, :filter_parameters, ["password", "admin_url_id"]
+
 # Use oban to regularly delete charts
 config :wordcharts, Oban,
   repo: Wordcharts.Repo,

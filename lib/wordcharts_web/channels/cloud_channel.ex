@@ -3,6 +3,7 @@ defmodule WordchartsWeb.ChartChannel do
 
   alias Wordcharts.Charts
   alias Wordcharts.Charts.ChartHelpers
+  alias Wordcharts.Charts.ChartSettings
   alias WordchartsService.NlpService
 
   require Logger
@@ -17,7 +18,7 @@ defmodule WordchartsWeb.ChartChannel do
        %{
          id: chart.id,
          name: chart.name,
-         settings: chart.settings,
+         settings: ChartSettings.sanitize(chart.settings),
          language: chart.language,
          grammatical_search_filter: chart.grammatical_search_filter
        }, socket}
@@ -53,7 +54,8 @@ defmodule WordchartsWeb.ChartChannel do
         {:reply, {:ok, %{}}, socket}
 
       {:error, reason} ->
-        {:reply, {:error, %{reason: reason}}, socket}
+        Logger.error("Tagging words failed: #{inspect(reason)}")
+        {:reply, {:error, %{reason: "tagging failed"}}, socket}
     end
   end
 
@@ -166,36 +168,29 @@ defmodule WordchartsWeb.ChartChannel do
       merged_language =
         if language && String.trim(language) != "", do: language, else: chart.language
 
-      {:ok, updated_chart} =
-        Charts.update_chart(chart, %{
-          language: merged_language
-        })
+      case Charts.update_chart(chart, %{language: merged_language}) do
+        {:ok, updated_chart} ->
+          broadcast_chart_update(socket, updated_chart)
+          retag_words(socket, chart, updated_chart)
 
-      broadcast_chart_update(socket, updated_chart)
-
-      old_words = Charts.all_words(chart.id) |> Enum.join(" ")
-
-      case NlpService.tag_words(old_words, merged_language) do
-        {:ok, words} ->
-          Charts.clear_words(chart.id)
-          Charts.create_words(words, updated_chart)
-
-          broadcast_with_words(socket, updated_chart)
-          {:noreply, socket}
-
-        {:error, reason} ->
-          {:reply, {:error, %{reason: reason}}, socket}
+        {:error, _changeset} ->
+          {:reply, {:error, %{reason: "invalid language"}}, socket}
       end
     else
       {:reply, {:error, reason: "not authorized"}, socket}
     end
   end
 
-  def handle_in("update_chart", %{"admin_url_id" => admin_url_id, "settings" => settings}, socket) do
+  def handle_in("update_chart", %{"admin_url_id" => admin_url_id, "settings" => settings}, socket)
+      when is_map(settings) do
     {authenticated, chart} = authenticate_chart_access(socket.topic, admin_url_id)
 
     if(authenticated) do
-      merged_settings = Map.merge(chart.settings, settings, fn _k, a, b -> Map.merge(a, b) end)
+      merged_settings =
+        Map.merge(chart.settings, ChartSettings.sanitize(settings), fn
+          _k, a, b when is_map(a) and is_map(b) -> Map.merge(a, b)
+          _k, _a, b -> b
+        end)
 
       {:ok, updated_chart} =
         Charts.update_chart(chart, %{
@@ -206,6 +201,23 @@ defmodule WordchartsWeb.ChartChannel do
       {:noreply, socket}
     else
       {:reply, {:error, reason: "not authorized"}, socket}
+    end
+  end
+
+  defp retag_words(socket, chart, updated_chart) do
+    old_words = Charts.all_words(chart.id) |> Enum.join(" ")
+
+    case NlpService.tag_words(old_words, updated_chart.language) do
+      {:ok, words} ->
+        Charts.clear_words(chart.id)
+        Charts.create_words(words, updated_chart)
+
+        broadcast_with_words(socket, updated_chart)
+        {:noreply, socket}
+
+      {:error, reason} ->
+        Logger.error("Tagging words failed: #{inspect(reason)}")
+        {:reply, {:error, %{reason: "tagging failed"}}, socket}
     end
   end
 
@@ -221,7 +233,7 @@ defmodule WordchartsWeb.ChartChannel do
     broadcast!(socket, "update_chart", %{
       id: updated_chart.id,
       name: updated_chart.name,
-      settings: updated_chart.settings,
+      settings: ChartSettings.sanitize(updated_chart.settings),
       grammatical_search_filter: updated_chart.grammatical_search_filter,
       language: updated_chart.language
     })

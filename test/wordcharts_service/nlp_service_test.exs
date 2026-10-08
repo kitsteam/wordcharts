@@ -21,6 +21,16 @@ defmodule WordchartsService.NlpServiceTest do
                NlpService.tag_words("Test")
     end
 
+    test "tag_words/3 encodes the language in the query" do
+      @http_client
+      |> expect(:post, fn url, _body, _header ->
+        assert url == "localhost/tagged_words?lang=en%26evil%3D1%0D%0AX-Injected%3A+1"
+        {:ok, %HTTPoison.Response{body: "[]", status_code: 200}}
+      end)
+
+      assert {:ok, []} == NlpService.tag_words("Test", "en&evil=1\r\nX-Injected: 1")
+    end
+
     test "tag_words/2 excludes comma" do
       @http_client
       |> expect(:post, fn url, body, header ->

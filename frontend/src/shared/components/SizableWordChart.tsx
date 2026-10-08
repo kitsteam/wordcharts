@@ -7,13 +7,14 @@ import { useWindowWidth } from '../hooks/screenWidthHook'
 import { mapWords } from '../mapWords'
 import { GrammaticalCategoryColors, ReactWordcloudSettings, ServerWord } from '../types'
 import { colorByCategory } from '../wordsMappingUtils'
+import { sanitizeWordchartSettings } from '../sanitizeWordchartSettings'
 
 export function SizableWordChart({ options, words, categoryColors }: { options: ReactWordcloudSettings, words: ServerWord[], categoryColors?: GrammaticalCategoryColors }): React.ReactElement {
   const width = useWindowWidth()
-  const [wordChartSettings, setWordChartSettings] = useState<ReactWordcloudSettings>(options)
+  const [wordChartSettings, setWordChartSettings] = useState<ReactWordcloudSettings>(sanitizeWordchartSettings(options))
 
   useEffect(() => {
-    setWordChartSettings({ ...options, ...{ fontSizes: [MIN_SIZE, calculateMaxSize(options.rotationAngles)] } })
+    setWordChartSettings({ ...sanitizeWordchartSettings(options), ...{ fontSizes: [MIN_SIZE, calculateMaxSize(options.rotationAngles)] } })
   }, [width, options])
 
   const callbacks: Optional<Callbacks> = (() => {
